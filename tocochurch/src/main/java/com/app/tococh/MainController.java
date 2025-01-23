@@ -9,9 +9,12 @@ public class MainController {
 	@GetMapping("/")
 	public String homeRoot() {
 		
-		System.out.println("홈페이지 연결");
-		
 		return "index";
 	}
 
+	@GetMapping("/login.do")
+	public String loign() {
+		
+		return "login";
+	}
 }

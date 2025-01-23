@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-함께가는교회에 오시것을 환영합니다. 
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="./include/header.jsp" %>
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-2">Dashboard</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+ 					</div> 
+                </main>
+<%@include file="./include/footer.jsp" %>
