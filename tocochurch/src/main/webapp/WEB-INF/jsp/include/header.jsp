@@ -11,11 +11,12 @@
 <!--         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="/js/all.js" crossorigin="anonymous"></script>
+    	<script src="/js/jquery-3.7.1.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="/">함께가는교회</a>
+            <a class="navbar-brand ps-4" href="/">함께가는교회</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <ul  class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -55,7 +56,7 @@
                             </a>
                             <div class="collapse" id="offerToryLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">헌금등록</a>
+                                    <a class="nav-link" href="/offertory/offerInsert.do">헌금등록</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">헌금조회</a>
                                 </nav>
                             </div>
@@ -66,7 +67,7 @@
                             </a>
                             <div class="collapse" id="financeLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">재정등록</a>
+                                    <a class="nav-link" href="/finance/financeInsert.do">재정등록</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">재정조회</a>
                                 </nav>
                             </div>
@@ -78,7 +79,7 @@
                             <div class="collapse" id="systemLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/sys/churchInfo.do">교회정보설정</a>
-                                    <a class="nav-link" href="/sys/codeList.do">코드관리</a>
+                                    <a class="nav-link" href="/sysCode/codeListView.do">기준정보 관리</a>
                                 </nav>
                             </div>
                             
@@ -86,7 +87,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Together Community Church
+                        함께가는교회
                     </div>
                 </nav>
             </div>

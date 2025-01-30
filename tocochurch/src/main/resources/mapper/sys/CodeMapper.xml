@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.tococh.sys.mapper.CodeMapper">
+
+	<select id="getMstCodeList" resultType="Map">
+		SELECT * FROM CH_CODE_MT
+		ORDER BY GRP_CODE
+	</select>
+
+
+	<select id="getDtlCodeList" resultType="Map">
+		SELECT * FROM CH_CODE_DT
+		WHERE GRP_CODE = #{GRP_CODE}
+		ORDER BY CODE 
+	</select>
+
+	<insert id="insertMstCode">
+		INSERT INTO CH_CODE_MT
+		(GRP_CODE, CODE_NM, RMK, CR_DT, CR_ID)
+		VALUES
+		(#{grpCode}, #{codeNm}, #{rmk}, NOW(), 'SYSTEM')
+	</insert>
+
+	<update id="updateMstCode">
+		UPDATE CH_CODE_MT SET
+			CODE_NM =#{codeNm} ,
+			RMK = #{rmk}
+		WHERE GRP_CODE = #{grpCode}
+	</update>
+	
+	<delete id="deleteMstCode">
+		DELETE FROM CH_CODE_MT
+		WHERE GRP_CODE IN 
+		<foreach item="item" index="index" collection="arrGrpCodeList"
+		    open="(" separator="," close=")">
+		      #{item}
+		</foreach>		
+	</delete>
+	
+	
+	<insert id="insertDtlCode">
+		INSERT INTO CH_CODE_DT
+		(GRP_CODE, CODE, CODE_NM, RMK, REF, REF1, REF2, CR_DT, CR_ID)
+		VALUES
+		(#{GRP_CODE}, #{CODE}, #{CODE_NM}, #{RMK}, #{REF}, #{REF1}, #{REF2}, now(), 'SYSTEM')
+	</insert>
+
+	<update id="updateDtlCode">
+		UPDATE CH_CODE_DT SET
+			CODE_NM =#{CODE_NM} ,
+			RMK =#{RMK} ,
+			REF =#{REF} ,
+			REF1 =#{REF1} ,
+			REF2 =#{REF2} ,
+			UP_ID = 'SYSTEM',
+			UP_DT = now()
+		WHERE GRP_CODE = #{GRP_CODE}
+		AND CODE = #{CODE} 
+	</update>
+	
+	<delete id="deleteDtlCode">
+		DELETE FROM CH_CODE_DT
+		WHERE GRP_CODE = #{GRP_CODE}
+		AND CODE = #{CODE} 
+	</delete>
+
+</mapper>

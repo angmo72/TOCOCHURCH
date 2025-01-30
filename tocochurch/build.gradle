@@ -42,6 +42,10 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	//jstl
 //	implementation 'javax.servlet:jstl'
+
+	//json 
+	implementation 'org.json:json:20190722'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	
 	//자동 빌드
 	implementation 'org.springframework.boot:spring-boot-devtools'
