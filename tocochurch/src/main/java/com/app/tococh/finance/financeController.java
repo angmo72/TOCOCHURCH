@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class financeController {
 
 	
-	@GetMapping("/financeInsert.do")
-	public String viewChurchInfo() throws Exception {
+	@GetMapping("/financeInsert")
+	public String financeInsert() throws Exception {
 		
 		System.out.println("재정등록");
 		
@@ -21,6 +21,18 @@ public class financeController {
 			
 		
 		return "finance/financeInsert";
+	}
+	
+	@GetMapping("/financeManager")
+	public String financeManager() throws Exception {
+		
+		System.out.println("재정등록");
+		
+//		Map<Object, String> chMap = sysService.getChurchInfo();
+//		System.out.println(chMap);
+			
+		
+		return "finance/financeManager";
 	}
 	
 }

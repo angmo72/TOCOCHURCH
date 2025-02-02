@@ -9,16 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class offertoryController {
 
 	
-	@GetMapping("/offerInsert.do")
-	public String viewChurchInfo() throws Exception {
+	@GetMapping("/offerInsert")
+	public String offerInsert() throws Exception {
 		
 		System.out.println("헌금등록");
-		
-//		Map<Object, String> chMap = sysService.getChurchInfo();
-//		System.out.println(chMap);
-			
 		
 		return "offertory/offerInsert";
 	}
 	
+	
+	@GetMapping("/offerManager")
+	public String offerManager() throws Exception {
+		
+		System.out.println("헌금등록");
+		
+		return "offertory/offerManager";
+	}
 }

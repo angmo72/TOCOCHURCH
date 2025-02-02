@@ -143,7 +143,7 @@
                   { text: '그룹코드', datafield: 'GRP_CODE', cellsalign: 'center',align: 'center', width: 80, editable : false },
                   { text: '코드', datafield: 'CODE', cellsalign: 'center',align: 'center', width: 80},
                   { text: '코드명', datafield: 'CODE_NM', cellsalign: 'center',align: 'center', width: 150 },
-                  { text: '설명', datafield: 'RMK', cellsalign: 'center',align: 'center', width: 190 },
+                  { text: '설명', datafield: 'RMK', cellsalign: 'left',align: 'center', width: 300 },
                   { text: '참조', datafield: 'REF', cellsalign: 'center',align: 'center', width: 80 },
                   { text: '참조1', datafield: 'REF1', cellsalign: 'center',align: 'center', width: 80 },
                   { text: '참조1', datafield: 'REF2', cellsalign: 'center',align: 'center', width: 80 }

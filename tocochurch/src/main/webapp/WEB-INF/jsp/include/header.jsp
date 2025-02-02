@@ -46,7 +46,8 @@
                             </a>
                             <div class="collapse" id="chUserLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">교인조회/등록</a>
+                                    <a class="nav-link" href="/user/userEdite">교인등록/수정</a>
+                                    <a class="nav-link" href="/user/userManager">교인관리</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#offerToryLayouts" aria-expanded="false" aria-controls="offerToryLayouts">
@@ -56,8 +57,8 @@
                             </a>
                             <div class="collapse" id="offerToryLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/offertory/offerInsert.do">헌금등록</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">헌금조회</a>
+                                    <a class="nav-link" href="/offertory/offerInsert">헌금등록</a>
+                                    <a class="nav-link" href="/offertory/offerManager">헌금조회</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#financeLayouts" aria-expanded="false" aria-controls="financeLayouts">
@@ -67,8 +68,8 @@
                             </a>
                             <div class="collapse" id="financeLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/finance/financeInsert.do">재정등록</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">재정조회</a>
+                                    <a class="nav-link" href="/finance/financeInsert">재정등록</a>
+                                    <a class="nav-link" href="/finance/financeManager">재정조회</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#systemLayouts" aria-expanded="false" aria-controls="systemLayouts">

@@ -137,49 +137,35 @@
 							                <table clase="w-auto" style="width:1200px">
 							                    <tr>
 							                    	<td align="right" class="col-xl-1">
+							                        	년월:
+							                        </td>
+							                        <td align="left" class="col-xl-2">
+							                        	<input class="tbl-form-control w-50" id="sch_userCode" />
+							                        </td>
+							                    	<td align="right" class="col-xl-1">
 							                        	수입/지출:
 							                        </td>
-							                        <td align="left" class="col-xl-3">
+							                        <td align="left" class="col-xl-2">
 							                        	<input class="tbl-form-control w-50" id="sch_userCode" />
 							                        </td>
 							                    	<td align="right" class="col-xl-1">
 							                        	항목:
 							                        </td>
-							                        <td align="left" class="col-xl-3">
+							                        <td align="left" class="col-xl-2">
 							                        	<input class="tbl-form-control w-50"  id="sch_userNm" />
 							                        </td>
 							                    	<td align="right" class="col-xl-1">
 							                        	세무내역:
 							                        </td>
-							                        <td align="left" class="col-xl-3">
-							                        	<input class="tbl-form-control w-100"  id="sch_userNm" />
-							                        </td>
-							                    </tr>
-							                    <tr>
-							                    	<td align="right" class="col-xl-1">
-							                        	일자:
-							                        </td>
-							                        <td align="left" class="col-xl-3">
-							                        	<input class="tbl-form-control w-50" id="sch_userCode" />
-							                        </td>
-							                    	<td align="right" class="col-xl-1">
-							                        	금액:
-							                        </td>
-							                        <td align="left" class="col-xl-3">
-							                        	<input class="tbl-form-control w-50"  id="sch_userNm" />
-							                        </td>
-													<td align="right" class="col-xl-1">
-							                        	비고:
-							                        </td>
-							                        <td align="left" class="col-xl-3">
+							                        <td align="left" class="col-xl-2">
 							                        	<input class="tbl-form-control w-100"  id="sch_userNm" />
 							                        </td>
 							                    </tr>
 							                </table>
                                         </div>
                                         <div class="float-end fcol-xl-3 align-bottom">
-	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="searchUser()">저 장</a>
-	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="searchUser()">삭 제</a>
+	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="searchUser()">조 회</a>
+	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="searchUser()">다운로드</a>
                                         </div>
                                    </div>
                            		</div>
