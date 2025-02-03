@@ -26,7 +26,18 @@ function fnGetCodeList(objId, grpCode, value, width, height){
 		displayMember: "CODE_NM", 
 		valueMember: "CODE", 
 		width: "100%", 
-		height: 30,
+		height: '30px',
 	});
 	
+}
+
+
+function fnSetCalendar(objId, value, s_width, s_height){
+	$("#"+objId).jqxDateTimeInput({
+		animationType: 'fade', 
+		width: '150px', 
+		height: '30px', 
+		formatString: 'yyyy-MM-dd',
+		dropDownHorizontalAlignment: 'right'
+	});	
 }

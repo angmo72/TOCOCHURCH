@@ -18,6 +18,8 @@
     <script type="text/javascript" src="/jqwidgets/jqxdropdownlist.js"></script>
     
     <script type="text/javascript" src="/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcalendar.js"></script>
 
 <!--     <script type="text/javascript" src="/jqwidgets/jqxmenu.js"></script> -->
 <!--     <script type="text/javascript" src="/jqwidgets/jqxgrid.edit.js"></script>  -->
@@ -55,7 +57,8 @@
 			//직분
 			fnGetCodeList("frm_duty", "CH004");
 			
-			
+			//생년월일
+			fnSetCalendar("frm_birthday", "", "", "");
         });
         
         function setGrid(){
@@ -206,7 +209,7 @@
 					                    </tr>
 					                    <tr>
 					                    	<td align="right" class="col-xl-2"> 생년월일: </td> 
-					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-100"  id="sch_userNm" /></td>
+					                        <td align="left" class="col-xl-4"> <div class="tbl-form-control w-100"  id="frm_birthday"></div></td>
 					                    	<td align="right" class="col-xl-2"> 휴대폰: </td>
 					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-100" id="sch_userCode" /> </td>
 					                    </tr>
