@@ -134,7 +134,7 @@
                                <div class="card">
                                    <div class="card-header col-xl-12">
                                     	<div class="float-start col-xl-1-9">
-							                <table clase="w-auto" style="width:1200px">
+							                <table clase="w-auto" style="width:1000px">
 							                    <tr>
 							                    	<td align="right" class="col-xl-1">
 							                        	년월:

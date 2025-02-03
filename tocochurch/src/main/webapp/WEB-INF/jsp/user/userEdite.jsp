@@ -7,22 +7,25 @@
     
     <script type="text/javascript" src="/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxdata.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxbuttons.js"></script>
-    <script type="text/javascript" src="/jqwidgets/jqxscrollbar.js"></script>
-    <script type="text/javascript" src="/jqwidgets/jqxmenu.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxcheckbox.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxlistbox.js"></script>
-    <script type="text/javascript" src="/jqwidgets/jqxdropdownlist.js"></script>
-    <script type="text/javascript" src="/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxscrollbar.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxgrid.sort.js"></script> 
     <script type="text/javascript" src="/jqwidgets/jqxgrid.pager.js"></script> 
     <script type="text/javascript" src="/jqwidgets/jqxgrid.selection.js"></script> 
-    <script type="text/javascript" src="/jqwidgets/jqxgrid.edit.js"></script> 
-    <script type="text/javascript" src="/jqwidgets/jqxgrid.filter.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxdropdownlist.js"></script>
     
-    <script type="text/javascript" src="/jqwidgets/jqxnumberinput.js"></script>
-    <script type="text/javascript" src="/jqwidgets/jqxwindow.js"></script>
-    <script type="text/javascript" src="/jqwidgets/jqxinput.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcombobox.js"></script>
+
+<!--     <script type="text/javascript" src="/jqwidgets/jqxmenu.js"></script> -->
+<!--     <script type="text/javascript" src="/jqwidgets/jqxgrid.edit.js"></script>  -->
+<!--     <script type="text/javascript" src="/jqwidgets/jqxgrid.filter.js"></script>  -->
+    
+<!--     <script type="text/javascript" src="/jqwidgets/jqxnumberinput.js"></script> -->
+<!--     <script type="text/javascript" src="/jqwidgets/jqxwindow.js"></script> -->
+<!--     <script type="text/javascript" src="/jqwidgets/jqxinput.js"></script> -->
 
     <script type="text/javascript">
     var datafields1 = "";
@@ -44,6 +47,14 @@
             setGrid();
 			
 // 			getMstCode();
+
+			//구역
+			fnGetCodeList("frm_zone", "CH002");
+			//신급
+			fnGetCodeList("frm_baptism", "CH003");
+			//직분
+			fnGetCodeList("frm_duty", "CH004");
+			
 			
         });
         
@@ -93,13 +104,17 @@
          		}); 
         }
         
-        function getMstCode(){
-			var url = "/sysCode/getMstCodeList.do";
+        function searchUser(){
+			var url = "/user/selectUserList";
 			// prepare the data
 			var source =
 			{
 				method: 'post',
 				datatype: "json",
+				data : {
+					sch_userCode : $("#sh_userCode").val(),
+					sch_userNm : $("#sh_userNm").val(),
+					},
 				datafields: datafields1,
 				id: 'id',
 				url: url
@@ -141,13 +156,13 @@
 								                        	코드:
 								                        </td>
 								                        <td align="left" class="col-xl-4">
-								                        	<input class="tbl-form-control w-100" id="sch_userCode" />
+								                        	<input class="tbl-form-control w-100" id="sh_userCode" />
 								                        </td>
 								                    	<td align="right" class="col-xl-2">
 								                        	성명:
 								                        </td>
 								                        <td align="left" class="col-xl-4">
-								                        	<input class="tbl-form-control w-100"  id="sch_userNm" />
+								                        	<input class="tbl-form-control w-100"  id="sh_userNm" />
 								                        </td>
 								                    </tr>
 								                </table>
@@ -178,42 +193,42 @@
 								<div class="card-header-tabs my-1 p-2 " >
 					                <table clase="w-100 ">
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 코드: </td>
-					                        <td align="left" class="col-xl-3"><input class="tbl-form-control w-50" id="sch_userCode" /></td>
-					                    	<td align="right" class="col-xl-1"> 구역: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-100"  id="sch_userNm" /> </td>
+					                    	<td align="right" class="col-xl-2"> 코드: </td>
+					                        <td align="left" class="col-xl-4"><input class="tbl-form-control w-50" id="frm_US_CODE" /></td>
+					                    	<td align="right" class="col-xl-2"> 구역: </td>
+					                        <td align="left" class="col-xl-4"> <div class="tbl-form-control w-75"  id="frm_zone" ></div></td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 이름: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-100" id="sch_userCode" /> </td>
-					                    	<td align="right" class="col-xl-1"> 성별: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-30"  id="sch_userNm" /> </td>
+					                    	<td align="right" class="col-xl-2"> 이름: </td>
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-100" id="frm_USER_NM" /> </td>
+					                    	<td align="right" class="col-xl-2"> 성별: </td>
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-30"  id="sch_userNm" /> </td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 생년월일: </td> 
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-100"  id="sch_userNm" /></td>
-					                    	<td align="right" class="col-xl-1"> 휴대폰: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-100" id="sch_userCode" /> </td>
+					                    	<td align="right" class="col-xl-2"> 생년월일: </td> 
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-100"  id="sch_userNm" /></td>
+					                    	<td align="right" class="col-xl-2"> 휴대폰: </td>
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-100" id="sch_userCode" /> </td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 이메일: </td>
-					                        <td align="left" class="col-xl-3" colspan=3> <input class="tbl-form-control w-100"  id="sch_userNm" /> </td>
+					                    	<td align="right" class="col-xl-2"> 이메일: </td>
+					                        <td align="left" class="col-xl-10" colspan=3> <input class="tbl-form-control w-100"  id="sch_userNm" /> </td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 신급: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-75" id="sch_userCode" /> </td>
-					                    	<td align="right" class="col-xl-1"> 직분: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-75"  id="sch_userNm" /> </td>
+					                    	<td align="right" class="col-xl-2"> 신급: </td>
+					                        <td align="left" class="col-xl-4">  <div class="tbl-form-control w-75"  id="frm_baptism" ></div> </td>
+					                    	<td align="right" class="col-xl-2"> 직분: </td>
+					                        <td align="left" class="col-xl-4">  <div class="tbl-form-control w-75"  id="frm_duty" ></div> </td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 인도자: </td> 
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-75"  id="sch_userNm" /></td>
-					                    	<td align="right" class="col-xl-1"> 연락처: </td> 
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-75"  id="sch_userNm" /></td>
+					                    	<td align="right" class="col-xl-2"> 인도자: </td> 
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-75"  id="sch_userNm" /></td>
+					                    	<td align="right" class="col-xl-2"> 연락처: </td> 
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-75"  id="sch_userNm" /></td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 주소: </td>
-					                        <td align="left" class="col-xl-3" colspan=3>
+					                    	<td align="right" class="col-xl-2"> 주소: </td>
+					                        <td align="left" class="col-xl-10" colspan=3>
 					                        	<div class="float-start col-xl-2 mx-1">
 					                        		<input class="tbl-form-control w-100" id="sch_userCode" />
 					                        	</div>
@@ -223,8 +238,8 @@
 					                        </td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 회사: </td>
-					                        <td align="left" class="col-xl-3" colspan=3>
+					                    	<td align="right" class="col-xl-2"> 회사: </td>
+					                        <td align="left" class="col-xl-10" colspan=3>
 					                        	<div class="float-start col-xl-2 mx-1">
 					                        		<input class="tbl-form-control w-100" id="sch_userCode" />
 					                        	</div>
@@ -234,14 +249,14 @@
 					                        </td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 직장: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-50" id="sch_userCode" /> </td>
-					                    	<td align="right" class="col-xl-1"> 직위: </td>
-					                        <td align="left" class="col-xl-3"> <input class="tbl-form-control w-50"  id="sch_userNm" /> </td>
+					                    	<td align="right" class="col-xl-2"> 직장: </td>
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-50" id="sch_userCode" /> </td>
+					                    	<td align="right" class="col-xl-2"> 직위: </td>
+					                        <td align="left" class="col-xl-4"> <input class="tbl-form-control w-50"  id="sch_userNm" /> </td>
 					                    </tr>
 					                    <tr>
-					                    	<td align="right" class="col-xl-1"> 비고: </td>
-					                        <td align="left" class="col-xl-3" colspan=3> <textarea rows="3" class="tbl-form-control w-100"  id="sch_userNm"></textarea></td>
+					                    	<td align="right" class="col-xl-2"> 비고: </td>
+					                        <td align="left" class="col-xl-10" colspan=3> <textarea rows="3" class="tbl-form-control w-100"  id="sch_userNm"></textarea></td>
 					                    </tr>
 					                </table>
 								

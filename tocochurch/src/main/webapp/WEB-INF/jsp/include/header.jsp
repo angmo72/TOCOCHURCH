@@ -12,6 +12,7 @@
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="/js/all.js" crossorigin="anonymous"></script>
     	<script src="/js/jquery-3.7.1.min.js"></script>
+    	<script src="/js/chrch.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
