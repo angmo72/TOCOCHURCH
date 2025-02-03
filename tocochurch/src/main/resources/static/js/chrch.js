@@ -25,8 +25,8 @@ function fnGetCodeList(objId, grpCode, value, width, height){
 		source: dataAdapter, 
 		displayMember: "CODE_NM", 
 		valueMember: "CODE", 
-		width: 120, 
-//		height: 25,
+		width: "100%", 
+		height: 35,
 	});
 	
 }
