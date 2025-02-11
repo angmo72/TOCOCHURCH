@@ -103,7 +103,8 @@
 				datatype: "json",
 				datafields: datafields1,
 				id: 'id',
-				url: url
+				url: url,
+				pagesize :15
 			};
 			var dataAdapter = new $.jqx.dataAdapter(source, {
 			    downloadComplete: function (data, status, xhr) { },

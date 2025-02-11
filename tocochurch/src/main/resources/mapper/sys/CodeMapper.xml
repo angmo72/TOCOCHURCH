@@ -12,7 +12,7 @@
 	<select id="getDtlCodeList" resultType="Map">
 		SELECT * FROM CH_CODE_DT
 		WHERE GRP_CODE = #{GRP_CODE}
-		ORDER BY CODE 
+		ORDER BY ORD, CODE 
 	</select>
 
 	<insert id="insertMstCode">
@@ -41,9 +41,9 @@
 	
 	<insert id="insertDtlCode">
 		INSERT INTO CH_CODE_DT
-		(GRP_CODE, CODE, CODE_NM, RMK, REF, REF1, REF2, CR_DT, CR_ID)
+		(GRP_CODE, CODE, CODE_NM, RMK, REF, REF1, REF2, ORD, CR_DT, CR_ID)
 		VALUES
-		(#{GRP_CODE}, #{CODE}, #{CODE_NM}, #{RMK}, #{REF}, #{REF1}, #{REF2}, now(), 'SYSTEM')
+		(#{GRP_CODE}, #{CODE}, #{CODE_NM}, #{RMK}, #{REF}, #{REF1}, #{REF2},  #{ORD}, now(), 'SYSTEM')
 	</insert>
 
 	<update id="updateDtlCode">
@@ -53,6 +53,7 @@
 			REF =#{REF} ,
 			REF1 =#{REF1} ,
 			REF2 =#{REF2} ,
+			ORD =#{ORD} ,
 			UP_ID = 'SYSTEM',
 			UP_DT = now()
 		WHERE GRP_CODE = #{GRP_CODE}

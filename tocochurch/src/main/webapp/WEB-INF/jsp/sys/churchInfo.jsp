@@ -14,40 +14,46 @@
                         <div class="card mb-2">
                             <div class="card-body">
 	                            <form>
-	                                <div class="row mb-3">
-	                                    <div class="col-md-6">
-	                                        <div class="form-floating mb-3 mb-md-0">
-	                                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" />
-	                                            <label for="inputFirstName">First name</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-md-6">
-	                                        <div class="form-floating">
-	                                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" />
-	                                            <label for="inputLastName">Last name</label>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                                <div class="form-floating mb-3">
-	                                    <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-	                                    <label for="inputEmail">Email address</label>
-	                                </div>
-	                                <div class="row mb-3">
-	                                    <div class="col-md-6">
-	                                        <div class="form-floating mb-3 mb-md-0">
-	                                            <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
-	                                            <label for="inputPassword">Password</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-md-6">
-	                                        <div class="form-floating mb-3 mb-md-0">
-	                                            <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-	                                            <label for="inputPasswordConfirm">Confirm Password</label>
-	                                        </div>
-	                                    </div>
-	                                </div>
+					                <table clase="w-100 ">
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 교회명: </td>
+					                        <td align="left" class="col-xl-7" colspan=3><input class="tbl-form-control w-30" id="frm_US_CODE" /></td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 전화번호: </td>
+					                        <td align="left" class="col-xl-7" colspan=3><input class="tbl-form-control w-20" id="frm_US_CODE" /></td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 팩스: </td>
+					                        <td align="left" class="col-xl-7" colspan=3><input class="tbl-form-control w-20" id="frm_US_CODE" /></td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 주소: </td>
+					                        <td align="left" class="col-xl-7" colspan=3>
+					                        	<input class="tbl-form-control w-20" id="frm_US_CODE" />
+					                        	<input class="tbl-form-control w-100" id="frm_US_CODE" />
+					                        </td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 사업자번호: </td>
+					                        <td align="left" class="col-xl-3" colspan=3><input class="tbl-form-control w-20" id="frm_US_CODE" /></td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 담임목사: </td>
+					                        <td align="left" class="col-xl-3"><input class="tbl-form-control w-30" id="frm_US_CODE" /></td>
+					                    	<td align="right" class="col-xl-1"> 연락처: </td>
+					                        <td align="left" class="col-xl-3"><input class="tbl-form-control w-70" id="frm_US_CODE" /></td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 부목사: </td>
+					                        <td align="left" class="col-xl-3"><input class="tbl-form-control w-30" id="frm_US_CODE" /></td>
+					                    	<td align="right" class="col-xl-1"> 연락처: </td>
+					                        <td align="left" class="col-xl-3"><input class="tbl-form-control w-70" id="frm_US_CODE" /></td>
+					                    </tr>
+									</table>
+										
 	                                <div class="mt-4 mb-0">
-	                                    <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html">Create Account</a></div>
+	                                    <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html">저장하기</a></div>
 	                                </div>
 	                            </form>
                             </div>

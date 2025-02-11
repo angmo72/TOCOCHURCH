@@ -7,12 +7,15 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.tococh.sys.service.CodeService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/sysCode/")
@@ -26,8 +29,14 @@ public class CodeController {
 	}
 
 	@GetMapping("/codeListView.do")
-	public String viewCodeList() throws Exception {
-		
+	public String viewCodeList(HttpServletRequest request, Model model) throws Exception {
+			
+		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
+		String sessName = (String) request.getSession().getAttribute("sessUserName");
+
+		model.addAttribute("sessEmail", sessEmail);
+		model.addAttribute("sessName", sessName);
+
 		return "sys/codeList";
 	}
 	
@@ -111,7 +120,7 @@ public class CodeController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/saveDtlCode.do")
+	@RequestMapping("/saveDtlCode")
 	public HashMap<String, Object> saveDtlCode(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -134,6 +143,7 @@ public class CodeController {
 	        map.put("GRP_CODE",obj.getString("GRP_CODE"));
 	        map.put("CODE",obj.getString("CODE"));
 	        map.put("CODE_NM",obj.getString("CODE_NM"));
+	        map.put("ORD",obj.getInt("ORD"));
 	        if(obj.getString("RMK") != null )
 	        	map.put("RMK",obj.getString("RMK"));
 	        else 

@@ -41,7 +41,8 @@
                 { name: 'RMK', type: 'string' },
                 { name: 'REF', type: 'string' },
                 { name: 'REF1', type: 'string' },
-                { name: 'REF2', type: 'string' }
+                { name: 'REF2', type: 'string' },
+                { name: 'ORD', type: 'number' }
             ];
 
             
@@ -71,6 +72,8 @@
             {
                 width: "100%",
                 pageable: true,
+                pagesize: 15,
+                pagermode: 'simple',
                 autoheight: true,
                 sortable: true,
                 altrows: true,
@@ -84,8 +87,8 @@
                 columns: [
                   { text: '그룹코드', datafield: 'GRP_CODE', columntype: 'textbox', cellsalign: 'center', align: 'center', width: 80 ,editable : false},
                   { text: '코드명', datafield: 'CODE_NM', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 110 },
-                  { text: '설명', datafield: 'RMK', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 120 },
-                  { text: '수정', datafield: 'Edit', columntype: 'button', cellsalign: 'center', width: 60 ,cellsrenderer: function () {
+                  { text: '설명', datafield: 'RMK', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 200 },
+                  { text: '수정', datafield: 'Edit', columntype: 'button', cellsalign: 'center',align: 'center',  width: 60 ,cellsrenderer: function () {
                       return "수정";
                    }, buttonclick: function (row) {
                       // open the popup window when the user clicks a button.
@@ -130,6 +133,8 @@
                 width: "100%",
 //                 source: dataAdapter,                
                 pageable: true,
+                pagesize: 15,
+                pagermode: 'simple',
                 autoheight: true,
                 autoloadstate: true,
                 sortable: true,
@@ -146,7 +151,8 @@
                   { text: '설명', datafield: 'RMK', cellsalign: 'left',align: 'center', width: 300 },
                   { text: '참조', datafield: 'REF', cellsalign: 'center',align: 'center', width: 80 },
                   { text: '참조1', datafield: 'REF1', cellsalign: 'center',align: 'center', width: 80 },
-                  { text: '참조1', datafield: 'REF2', cellsalign: 'center',align: 'center', width: 80 }
+                  { text: '참조1', datafield: 'REF2', cellsalign: 'center',align: 'center', width: 80 },
+                  { text: '정렬', datafield: 'ORD', cellsalign: 'center',align: 'center', width: 80 }
                 ]
             }); 
             $('#grid2').on('rowclick', function (event) 
@@ -203,7 +209,7 @@
 				datatype: "json",
 				datafields: datafields1,
 				id: 'id',
-				url: url
+				url: url,
 			};
 			var dataAdapter = new $.jqx.dataAdapter(source, {
 			    downloadComplete: function (data, status, xhr) { },
@@ -401,6 +407,7 @@
         			if(rows[i].REF == undefined ) rows[i].REF = "";
         			if(rows[i].REF1 == undefined ) rows[i].REF1 = "";
         			if(rows[i].REF2 == undefined ) rows[i].REF2 = "";
+        			if(rows[i].ORD == undefined ) rows[i].ORD = 0;
         			
         			saveRows.push(rows[i]);
         		}
@@ -412,7 +419,7 @@
         	}
         	
  		  	$.ajax({
-		  	    url: '/sysCode/saveDtlCode.do',
+		  	    url: '/sysCode/saveDtlCode',
 		  	    method: 'post',
 		  	    data: {
 		  	    	saveRows : JSON.stringify(saveRows)

@@ -66,8 +66,8 @@
                 columns: [
                   { text: '일자', datafield: 'IN_DATE', columntype: 'textbox', cellsalign: 'center', align: 'center', width: 120 ,editable : false},
                   { text: '수입/지출', datafield: 'GUBUN', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 100 },
-                  { text: '항목', datafield: 'CATEGORY', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 150 },
-                  { text: '세무내역', datafield: 'CATEGORY2', columntype: 'textbox', cellsalign: 'left',align: 'center', width: 200 },
+                  { text: '항목', datafield: 'CATEGORY', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 180 },
+                  { text: '세부내역', datafield: 'CATEGORY2', columntype: 'textbox', cellsalign: 'left',align: 'center', width: 250 },
                   { text: '수입', datafield: 'IN_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 150 },
                   { text: '지출', datafield: 'OUT_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 150 },
                   { text: '잔액', datafield: 'REST_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 150 },
@@ -149,7 +149,7 @@
 							                        	<input class="tbl-form-control w-50"  id="sch_userNm" />
 							                        </td>
 							                    	<td align="right" class="col-xl-1">
-							                        	세무내역:
+							                        	세부내역:
 							                        </td>
 							                        <td align="left" class="col-xl-3">
 							                        	<input class="tbl-form-control w-100"  id="sch_userNm" />

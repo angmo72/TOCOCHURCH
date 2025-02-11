@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,11 +9,20 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>함께가는교회 ERP</title>
-<!--         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
+        <link rel="shortcut icon" href="#">
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+		<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+		
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="/js/all.js" crossorigin="anonymous"></script>
     	<script src="/js/jquery-3.7.1.min.js"></script>
     	<script src="/js/chrch.js"></script>
+    	<script>
+    		fnGetSessionInfo();
+        	$(document).ready(function () {
+        		$("#loginName").text(sessionInfo.sessName);
+        	});
+    	</script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -25,12 +35,14 @@
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">홍길동 <i class="fas fa-user fa-fw"></i></a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                     <span id="loginName"></span> 
+                    <i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
 <!--                         <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="/logout.do">Logout</a></li>
+                        <li><a class="dropdown-item" href="/loginOut">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -81,6 +93,7 @@
                             <div class="collapse" id="systemLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/sys/churchInfo.do">교회정보설정</a>
+                                    <a class="nav-link" href="/member/memberListView.do">관리자 관리</a>
                                     <a class="nav-link" href="/sysCode/codeListView.do">기준정보 관리</a>
                                 </nav>
                             </div>
