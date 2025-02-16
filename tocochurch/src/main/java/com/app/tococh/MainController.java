@@ -76,7 +76,7 @@ public class MainController {
 	
 	@GetMapping("/login")
 	public String loign() {
-		System.out.println(" login.do를 호출합니다. ");
+		System.out.println(" login를 호출합니다. ");
 		return "loginForm";
 	}
 	

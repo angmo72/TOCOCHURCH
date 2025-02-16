@@ -21,6 +21,58 @@
     		fnGetSessionInfo();
         	$(document).ready(function () {
         		$("#loginName").text(sessionInfo.sessName);
+        		
+        		
+        		var commUserSearchPopContianer = $('#commUserSearchPopContianer');
+        		var offset = commUserSearchPopContianer.offset();
+        		$('#commUserSearchPopWindow').jqxWindow({  
+        			width: 600,
+        			height: 480, 
+        			autoOpen: false,
+        			resizable: false,
+        			isModal: true, 
+        			modalOpacity: 0.3,
+        		    position: { x: offset.left + 150, y: offset.top + 100},
+//         		    initContent: function () {
+//         		        $('#commUserSrchButton').jqxButton({ width: '80px', disabled: true });
+//         		    }
+        		});
+        		$("#commUserSearchPopWindow").prop("display","block");
+        		
+        	    $("#commUserSearchPopGrid").jqxGrid(
+     	    	    {
+     	    	        width: "100%",
+     	    	        height: "400px",
+     	    	        pageable: true,
+//      	    	        autoheight: true,
+     	    	        altrows: true,
+     	    	        editable: false,
+     	    	        enablebrowserselection : true,
+//      	    	        selectionmode: 'checkbox',
+     	    	        selectionmode: 'singlerow',
+     	    	        columns: [
+                            { text: '코드', datafield: 'USER_CODE', columntype: 'textbox', cellsalign: 'center', align: 'center', width: 80 ,editable : false},
+                            { text: '성명', datafield: 'USER_NM', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 120 },
+                            { text: '성별', datafield: 'GENDER', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 80},
+                            { text: '생년월일', datafield: 'BIRTHDAY', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 100 },
+                            { text: '신급', datafield: 'BAPTISM', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 80 },
+                            { text: '직분', datafield: 'DUTY', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 80 }
+     	    	        ]
+     	    	    });
+     	    	    $('#commUserSearchPopGrid').on('rowclick', function (event) 
+     	    		{
+     	    		    var args = event.args;
+     	    		    // row's bound index.
+     	    		    var boundIndex = args.rowindex;
+     	    		    // row's visible index.
+     	    		    var visibleIndex = args.visibleindex;
+     	    		    // right click.
+     	    		    var rightclick = args.rightclick; 
+     	    		    // original event.
+     	    		    var ev = args.originalEvent;  
+     	    		}); 
+        	    		
+        		
         	});
     	</script>
     </head>
@@ -59,8 +111,8 @@
                             </a>
                             <div class="collapse" id="chUserLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/user/userEdite">교인등록/수정</a>
-                                    <a class="nav-link" href="/user/userManager">교인관리</a>
+                                    <a class="nav-link" href="/user/userEdite">교인관리</a>
+                                    <a class="nav-link" href="/user/userManager">교인관리현황</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#offerToryLayouts" aria-expanded="false" aria-controls="offerToryLayouts">
@@ -92,9 +144,9 @@
                             </a>
                             <div class="collapse" id="systemLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/sys/churchInfo.do">교회정보설정</a>
-                                    <a class="nav-link" href="/member/memberListView.do">관리자 관리</a>
-                                    <a class="nav-link" href="/sysCode/codeListView.do">기준정보 관리</a>
+                                    <a class="nav-link" href="/sys/churchInfo">교회정보설정</a>
+                                    <a class="nav-link" href="/member/memberListView">관리자 관리</a>
+                                    <a class="nav-link" href="/sysCode/codeListView">기준정보 관리</a>
                                 </nav>
                             </div>
                             
@@ -107,3 +159,4 @@
                 </nav>
             </div>
             <div id="layoutSidenav_content">
+            <%@include file="../include/commonHeader.jsp" %>

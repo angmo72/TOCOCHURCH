@@ -92,7 +92,7 @@
         }
         
         function getMstCode(){
-			var url = "/sysCode/getMstCodeList.do";
+			var url = "/sysCode/getMstCodeList";
 			// prepare the data
 			var source =
 			{

@@ -31,7 +31,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
-	@GetMapping("/memberListView.do")
+	@GetMapping("/memberListView")
 	public ModelAndView viewCodeList(HttpServletRequest request, Model model, ModelAndView mv) throws Exception {
 			
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");

@@ -19,7 +19,7 @@ public class SysController {
 		this.sysService = sysService;
 	}
 
-	@GetMapping("/churchInfo.do")
+	@GetMapping("/churchInfo")
 	public String viewChurchInfo() throws Exception {
 		
 		System.out.println("교회환경설정");

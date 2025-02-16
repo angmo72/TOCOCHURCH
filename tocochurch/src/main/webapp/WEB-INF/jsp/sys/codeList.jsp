@@ -201,7 +201,7 @@
         }
         
         function getMstCode(){
-			var url = "/sysCode/getMstCodeList.do";
+			var url = "/sysCode/getMstCodeList";
 			// prepare the data
 			var source =
 			{
@@ -259,7 +259,7 @@
         	if(result == true){	
         	
 	 		  	$.ajax({
-			  	    url: '/sysCode/saveMstCode.do',
+			  	    url: '/sysCode/saveMstCode',
 			  	    method: 'post',
 			  	    data: {
 			  	        mode: 'DELETE',
@@ -291,7 +291,7 @@
         		
   	        
  		  	$.ajax({
-		  	    url: '/sysCode/saveMstCode.do',
+		  	    url: '/sysCode/saveMstCode',
 		  	    method: 'post',
 		  	    data: {
 		  	        mode: $("#fm_MODE").val(),
@@ -315,7 +315,7 @@
         
         function getDtlCodeList(grpCode){
 			
-        	var url = "/sysCode/getDtlCodeList.do";
+        	var url = "/sysCode/getDtlCodeList";
 			var source =
 			{
 				method: 'post',

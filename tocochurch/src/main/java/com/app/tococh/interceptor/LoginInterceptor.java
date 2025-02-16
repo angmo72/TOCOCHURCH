@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
 	
-	private static final String[] exceptURIs = {"/login.do", "/test3"};
+	private static final String[] exceptURIs = {"/login", "/test3"};
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

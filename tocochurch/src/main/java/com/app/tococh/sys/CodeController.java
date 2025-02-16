@@ -28,7 +28,7 @@ public class CodeController {
 		this.codeService = codeService;
 	}
 
-	@GetMapping("/codeListView.do")
+	@GetMapping("/codeListView")
 	public String viewCodeList(HttpServletRequest request, Model model) throws Exception {
 			
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
@@ -42,7 +42,7 @@ public class CodeController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/getMstCodeList.do")
+	@RequestMapping("/getMstCodeList")
 	public HashMap<String, Object> getMstCodeList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -59,7 +59,7 @@ public class CodeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getDtlCodeList.do")
+	@RequestMapping("/getDtlCodeList")
 	public HashMap<String, Object> getDtlCodeList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -78,12 +78,16 @@ public class CodeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/saveMstCode.do")
-	public HashMap<String, Object> saveMstCode(@RequestParam Map<String, Object> paramMap) throws Exception {
+	@RequestMapping("/saveMstCode")
+	public HashMap<String, Object> saveMstCode(HttpServletRequest request,  @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
 		
 		HashMap<String, Object> map  = new HashMap<String, Object>();
+		
+		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
+		String sessName = (String) request.getSession().getAttribute("sessUserName");
+		
 		String grpCode = (String) paramMap.get("grpCode");
 		String codeNm = (String) paramMap.get("codeNm");
 		String rmk = (String) paramMap.get("rmk");
@@ -93,7 +97,8 @@ public class CodeController {
 		map.put("grpCode", grpCode);
 		map.put("codeNm", codeNm);
 		map.put("rmk", rmk);
-	
+        map.put("SESS_EMAIL",sessEmail);
+		
 		System.out.println(map);
 		
 		if(mode.equals("INSERT")) {
@@ -121,16 +126,19 @@ public class CodeController {
 	
 	@ResponseBody
 	@RequestMapping("/saveDtlCode")
-	public HashMap<String, Object> saveDtlCode(@RequestParam Map<String, Object> paramMap) throws Exception {
+	public HashMap<String, Object> saveDtlCode(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
 		
 		HashMap<String, Object> map  = new HashMap<String, Object>();
 
-		System.out.println(paramMap.get("saveRows"));
+//		System.out.println(paramMap.get("saveRows"));
 		
 //		JSONObject jObject = new JSONObject((String)paramMap.get("saveRows"));
 		JSONArray jArray =  new JSONArray((String)paramMap.get("saveRows"));
+		
+		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
+		String sessName = (String) request.getSession().getAttribute("sessUserName");
 	
 		// 배열의 모든 아이템을 출력합니다.
 		for (int i = 0; i < jArray.length(); i++) {
@@ -139,6 +147,8 @@ public class CodeController {
 			
 	        JSONObject obj = jArray.getJSONObject(i);
 	        String crud = obj.getString("CRUD");
+	        
+	        map.put("SESS_EMAIL",sessEmail);
 	        
 	        map.put("GRP_CODE",obj.getString("GRP_CODE"));
 	        map.put("CODE",obj.getString("CODE"));

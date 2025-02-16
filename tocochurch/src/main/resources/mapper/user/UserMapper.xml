@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.tococh.user.mapper.UserMapper">
+
+	<select id="selectUserList" resultType="Map">
+		SELECT
+			USER_CODE,
+			USER_NM,
+			GET_CODE_NAME('CH010',GENDER) AS GENDER,
+			GET_CODE_NAME('CH002',ZONE) AS ZONE,
+			GET_CODE_NAME('CH011',DEPT) AS DEPT,
+			BIRTHDAY,
+			MOBILE,
+			EMAIL,
+			GET_CODE_NAME('CH003',BAPTISM) AS BAPTISM,
+			GET_CODE_NAME('CH004',DUTY) AS DUTY,
+			GUIDE,
+			ZIPCODE,
+			ADDRESS,
+			PHONE,
+			COMP_ZIPCODE,
+			COMP_ADDRESS,
+			COMP_PHONE,
+			COMP_NM,
+			COMP_POSITION,
+			RMK,
+			CR_ID,
+			CR_DT,
+			UP_ID,
+			UP_DT
+		FROM
+			CH_USER
+		WHERE 1=1
+		<if test='SCH_USERNM != null and SCH_USERNM !=""'>
+			AND  USER_NM LIKE CONCAT('%' , #{SCH_USERNM} ,'%')
+		</if>
+		<if test='SCH_USERCODE != null and SCH_USERCODE !=""'>
+			AND  USER_CODE LIKE CONCAT('%' , #{SCH_USERCODE} , '%')
+		</if>
+		ORDER BY USER_CODE DESC
+	</select>
+	
+	<select id="selectOneUser" resultType="Map">
+		SELECT
+			USER_CODE,
+			USER_NM,
+			GENDER,
+			ZONE,
+			DEPT,
+			BIRTHDAY,
+			MOBILE,
+			EMAIL,
+			BAPTISM,
+			DUTY,
+			GUIDE,
+			ZIPCODE,
+			ADDRESS,
+			PHONE,
+			COMP_ZIPCODE,
+			COMP_ADDRESS,
+			COMP_PHONE,
+			COMP_NM,
+			COMP_POSITION,
+			RMK,
+			CR_ID,
+			CR_DT,
+			UP_ID,
+			UP_DT
+		FROM
+			CH_USER
+		WHERE 1=1
+			AND  USER_CODE  =  #{SRCH_USER_CODE}
+	</select>
+
+	<insert id="insertUserInfo">
+		INSERT INTO CH_USER
+		(
+			USER_CODE, 	USER_NM, GENDER, ZONE, DEPT, BIRTHDAY,
+			MOBILE,	EMAIL,	BAPTISM,	DUTY,	GUIDE,
+			ZIPCODE,	ADDRESS,	PHONE,	COMP_ZIPCODE,	COMP_ADDRESS,
+			COMP_PHONE,	COMP_NM,	COMP_POSITION,	RMK,
+			CR_ID,	CR_DT
+		)
+		VALUES
+		(
+			(SELECT USER_CODE FROM(SELECT CONCAT('CU',LPAD(IFNULL(SUBSTR(MAX(USER_CODE),3,4),0) + 1, 4, 0)) AS USER_CODE FROM CH_USER) A), 	
+			#{frm_user_nm}, 				IFNULL(#{frm_gender},''), 		IFNULL(#{frm_zone},''), 		IFNULL(#{frm_dept},''), IFNULL(#{frm_birthday},''),
+			IFNULL(#{frm_mobile},''),		IFNULL(#{frm_email},''),		IFNULL(#{frm_baptism},''),			IFNULL(#{frm_duty},''),			IFNULL(#{frm_guide},''),
+			IFNULL(#{frm_zipcode},''),		IFNULL(#{frm_address},''),		IFNULL(#{frm_phone},''),			IFNULL(#{frm_comp_zipcode},''),	IFNULL(#{frm_comp_address},''),
+			IFNULL(#{frm_comp_phone},''),	IFNULL(#{frm_comp_nm},''),		IFNULL(#{frm_comp_position},''),	IFNULL(#{frm_rmk},''),
+			IFNULL(#{SESS_EMAIL},'TEST'),	NOW()
+		);
+	</insert>
+
+	<update id="updateUserInfo">
+		UPDATE CH_USER SET
+			USER_NM 		=  CASE WHEN #{frm_user_nm} != '' THEN #{frm_user_nm}  ELSE USER_NM END,
+			GENDER 			=  CASE WHEN #{frm_gender} != '' THEN #{frm_gender}  ELSE GENDER END,
+			ZONE 			=  CASE WHEN #{frm_zone} != '' THEN #{frm_zone}  ELSE ZONE END,
+			DEPT 			=  CASE WHEN #{frm_dept} != '' THEN #{frm_dept}  ELSE DEPT END,
+			BIRTHDAY 		=  CASE WHEN #{frm_birthday} != '' THEN #{frm_birthday}  ELSE BIRTHDAY END,
+			MOBILE 			=  CASE WHEN #{frm_mobile} != '' THEN #{frm_mobile}  ELSE MOBILE END,
+			EMAIL 			=  CASE WHEN #{frm_email} != '' THEN #{frm_email}  ELSE EMAIL END,
+			BAPTISM 		=  CASE WHEN #{frm_baptism} != '' THEN #{frm_baptism}  ELSE BAPTISM END,
+			DUTY 			=  CASE WHEN #{frm_duty} != '' THEN #{frm_duty}  ELSE DUTY END,
+			GUIDE 			=  CASE WHEN #{frm_guide} != '' THEN #{frm_guide}  ELSE GUIDE END,
+			ZIPCODE 		=  CASE WHEN #{frm_zipcode} != '' THEN #{frm_zipcode}  ELSE ZIPCODE END,
+			ADDRESS 		=  CASE WHEN #{frm_address} != '' THEN #{frm_address}  ELSE ADDRESS END,
+			PHONE 			=  CASE WHEN #{frm_phone} != '' THEN #{frm_phone}  ELSE PHONE END,
+			COMP_ZIPCODE 	=  CASE WHEN #{frm_comp_zipcode} != '' THEN #{frm_comp_zipcode}  ELSE COMP_ZIPCODE END,
+			COMP_ADDRESS 	=  CASE WHEN #{frm_comp_address} != '' THEN #{frm_comp_address}  ELSE COMP_ADDRESS END,
+			COMP_PHONE 		=  CASE WHEN #{frm_comp_phone} != '' THEN #{frm_comp_phone}  ELSE COMP_PHONE END,
+			COMP_NM 		=  CASE WHEN #{frm_comp_nm} != '' THEN #{frm_comp_nm}  ELSE COMP_NM END,
+			COMP_POSITION 	=  CASE WHEN #{frm_comp_position} != '' THEN #{frm_comp_position}  ELSE COMP_POSITION END,
+			RMK 			=  CASE WHEN #{frm_rmk} != '' THEN #{frm_rmk}  ELSE RMK END,
+			UP_ID 			= #{SESS_EMAIL},
+			UP_DT 			= NOW()
+		WHERE
+			USER_CODE = #{frm_user_code}
+	</update>
+	
+	<delete id="deleteUserInfo">
+		DELETE FROM CH_USER
+		WHERE USER_CODE = #{frm_user_code}
+	</delete>
+
+
+	<select id="getFamilyList" resultType="Map">
+		SELECT * FROM CH_FAMILY
+		WHERE FAMILY_CODE = #{FAMILY_CODE}
+		ORDER BY CR_DT 
+	</select>
+
+	<insert id="insertFamilyInfo">
+		INSERT INTO CH_FAMILY(
+			FAMILY_CODE, USER_CODE, USER_NM, RELATION, GENDER, 
+			BIRTHDAY, MOBILE, BAPTISM, DUTY, RMK, 
+			CR_ID, CR_DT
+		) VALUES (
+			#{FAMILY_CODE}, #{USER_CODE}, #{USER_NM}, #{RELATION}, #{GENDER}, 
+			#{BIRTHDAY}, #{MOBILE}, #{BAPTISM}, #{DUTY}, #{RMK}, 
+			#{SESS_EMAIL}, NOW()
+		);
+	</insert>
+
+	<update id="updateFamilyInfo">
+		UPDATE CH_FAMILY SET
+			RELATION =#{RELATION} ,
+			GENDER =#{GENDER} ,
+			BIRTHDAY =#{BIRTHDAY} ,
+			MOBILE =#{MOBILE} ,
+			BAPTISM =#{BAPTISM} ,
+			DUTY =#{DUTY} ,
+			RMK =#{RMK} ,
+			UP_ID = #{SESS_EMAIL},
+			UP_DT = now()
+		WHERE FAMILY_CODE = #{FAMILY_CODE}
+		AND USER_CODE = #{USER_CODE} 
+		AND USER_NM = #{USER_NM} 
+	</update>
+	
+	<delete id="deleteFamilyInfo">
+		DELETE FROM CH_FAMILY
+		WHERE FAMILY_CODE = #{FAMILY_CODE}
+		AND USER_NM = #{USER_NM} 
+	</delete>
+</mapper>

@@ -19,7 +19,7 @@
 		INSERT INTO CH_CODE_MT
 		(GRP_CODE, CODE_NM, RMK, CR_DT, CR_ID)
 		VALUES
-		(#{grpCode}, #{codeNm}, #{rmk}, NOW(), 'SYSTEM')
+		(#{grpCode}, #{codeNm}, #{rmk}, NOW(), #{SESS_EMAIL})
 	</insert>
 
 	<update id="updateMstCode">
@@ -43,7 +43,7 @@
 		INSERT INTO CH_CODE_DT
 		(GRP_CODE, CODE, CODE_NM, RMK, REF, REF1, REF2, ORD, CR_DT, CR_ID)
 		VALUES
-		(#{GRP_CODE}, #{CODE}, #{CODE_NM}, #{RMK}, #{REF}, #{REF1}, #{REF2},  #{ORD}, now(), 'SYSTEM')
+		(#{GRP_CODE}, #{CODE}, #{CODE_NM}, #{RMK}, #{REF}, #{REF1}, #{REF2},  #{ORD}, now(), #{SESS_EMAIL})
 	</insert>
 
 	<update id="updateDtlCode">
@@ -54,7 +54,7 @@
 			REF1 =#{REF1} ,
 			REF2 =#{REF2} ,
 			ORD =#{ORD} ,
-			UP_ID = 'SYSTEM',
+			UP_ID = #{SESS_EMAIL},
 			UP_DT = now()
 		WHERE GRP_CODE = #{GRP_CODE}
 		AND CODE = #{CODE} 
