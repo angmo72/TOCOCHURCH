@@ -56,7 +56,7 @@
 			fnSetCodeDiv("frm_gender", dsGenderCode);
 			
 			//생년월일
-			fnSetCalendar("frm_birthday", "", "", "");
+			fnSetCalendar("frm_birthday", "yyyy-MM-dd");
 			$('#frm_birthday').val("");
         	
             datafields1 = [
@@ -688,7 +688,7 @@
                             <div class="col-xl-7">
                                 <div class="card mb-0">
                                     <div class="card-header">
-                                    	<div class="float-start">
+                                    	<div class="float-start" style="padding:7px 0 7px 0">
                                         상세정보
                                         </div>
                                     	<div class="float-end">

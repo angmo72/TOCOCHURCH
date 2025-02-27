@@ -24,6 +24,35 @@ function fnGetSessionInfo(){
 	});
 }
 
+//url를 통해서 데이터 셋을 가지고 온다
+function fnGetCodeListUrl(url, objId, grpCode, value, width, height){
+	if(url == undefined || url =="") { url = "/sysCode/getDtlCodeList";}
+	
+	var source =
+	{
+	    datatype: "json",
+		data : {grpCode : grpCode},
+	    datafields: [
+	        { name: 'CODE' },
+	        { name: 'CODE_NM' }
+	    ],
+	    url: url,
+	    async: false
+	};
+	var dataAdapter = new $.jqx.dataAdapter(source);
+	// Create a jqxComboBox
+	$("#"+objId).jqxComboBox({ 
+		placeHolder: "선택",
+//		selectedIndex: 0, 
+		source: dataAdapter, 
+		displayMember: "CODE_NM", 
+		valueMember: "CODE", 
+		width: "100%", 
+		height: '30px',
+	});
+	
+}
+
 //그리드중 수정된 데이터 조회
 //fnGetCodeList("objId아이디", "그룹코드");
 function fnGetCodeList(objId, grpCode, value, width, height){
@@ -56,11 +85,11 @@ function fnGetCodeList(objId, grpCode, value, width, height){
 
 
 //그리드중 수정된 데이터 조회
-//fnGetCodeList("objId아이디", "그룹코드");
-function fnSetCodeDiv(objId, dataAdapter){
+//fnGetCodeList("objId아이디", "그룹코드", '첫번재 보일빈값'');
+function fnSetCodeDiv(objId, dataAdapter, addStr){
 	// Create a jqxComboBox
 	$("#"+objId).jqxComboBox({ 
-		placeHolder: "선택",
+//		placeHolder: "선택",
 //		selectedIndex: 0, 
 		source: dataAdapter, 
 		displayMember: "CODE_NM", 
@@ -69,6 +98,10 @@ function fnSetCodeDiv(objId, dataAdapter){
 		height: '30px',
 	});
 	
+	//값추가
+	if(addStr != undefined && addStr !="") {
+		$("#"+objId).jqxComboBox('insertAt',{label:addStr, value:''}, 0);
+	} 
 }
 
 //fnGridCodeList("objId아이디", "그룹코드");
@@ -93,13 +126,16 @@ function fnGridCodeList(grpCode, value, width, height){
 
 
 //달력포멧 
-function fnSetCalendar(objId, value, s_width, s_height){
+function fnSetCalendar(objId, fromat, cwidth){
+	if(cwidth == undefined || cwidth == "") cwidth ="150px";
 	$("#"+objId).jqxDateTimeInput({
 		animationType: 'fade', 
-		width: '150px', 
+		width: cwidth, 
 		height: '30px', 
-		formatString: 'yyyy-MM-dd',
-		dropDownHorizontalAlignment: 'right'
+//		formatString: 'Y',
+		formatString: fromat,
+//		culture: 'ko-KR',
+		dropDownHorizontalAlignment: 'left'
 	});	
 }
 

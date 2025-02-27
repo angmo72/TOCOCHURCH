@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/function" prefix="fn" %> --%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> --%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,6 +19,8 @@
         <script src="/js/all.js" crossorigin="anonymous"></script>
     	<script src="/js/jquery-3.7.1.min.js"></script>
     	<script src="/js/chrch.js"></script>
+<!--     	<script type="text/javascript" src="/jqwidgets/globalization/globalize.culture.ko-KR.js"></script> -->
+    	<script type="text/javascript" src="/jqwidgets/globalization/globalize.js"></script>
     	<script>
     		fnGetSessionInfo();
         	$(document).ready(function () {
@@ -112,7 +116,7 @@
                             <div class="collapse" id="chUserLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/user/userEdite">교인관리</a>
-                                    <a class="nav-link" href="/user/userManager">교인관리현황</a>
+                                    <a class="nav-link" href="/user/userPray">중보기도 및 관리</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#offerToryLayouts" aria-expanded="false" aria-controls="offerToryLayouts">

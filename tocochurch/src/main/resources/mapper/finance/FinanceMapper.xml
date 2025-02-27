@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.tococh.finance.mapper.FinanceMapper">
+
+	<select id="searchFinanceList" resultType="Map">
+		SELECT
+			FNNO,
+			GUBUN,
+			GET_CODE_NAME('CH012',GUBUN) AS GUBUN_NM,
+			CATEGORY,
+			GET_CODE_NAME(CASE WHEN GUBUN ='FN010' THEN 'CH005' ELSE 'CH006' END ,CATEGORY) AS CATEGORY_NM,
+			SUB_MEMO,
+			FNDATE,
+			CAST(CASE WHEN GUBUN ='FN010' THEN MONEY ELSE '0' END AS UNSIGNED) AS IN_MONEY,
+			CAST(CASE WHEN GUBUN ='FN020' THEN MONEY ELSE '0' END AS UNSIGNED) AS OUT_MONEY,
+			SUM(CASE WHEN GUBUN ='FN020' THEN MONEY * -1 ELSE MONEY end ) OVER(order by FNDATE ASC, FNNO ASC) as REST_MONEY,
+			MONEY,
+			MEMO,
+			DEL_YN,
+			DEL_ID,
+			CR_ID,
+			CR_DT,
+			UP_ID,
+			UP_DT
+		FROM CH_FINANCE
+		WHERE 1=1
+		<if test='srch_gubun != null and srch_gubun !=""'>
+			AND GUBUN =  #{srch_gubun}
+		</if>
+		<if test='srch_category != null and srch_category !=""'>
+			AND CATEGORY =  #{srch_category}
+		</if>
+		<if test='srch_date != null and srch_date !=""'>
+			AND DATE_FORMAT(FNDATE, '%Y-%m') =  #{srch_date}
+		</if>
+		<if test='srch_sub_memo != null and srch_sub_memo !=""'>
+			AND  SUB_MEMO =  #{srch_sub_memo}
+		</if>
+		AND DEL_YN='N'
+		ORDER BY FNDATE ASC, FNNO ASC
+	</select>
+
+	<insert id="insertFinanceData">
+		INSERT INTO CH_FINANCE
+		(
+			GUBUN,
+			CATEGORY,
+			SUB_MEMO,
+			FNDATE,
+			MONEY,
+			MEMO,
+			DEL_YN,
+			DEL_ID,
+			CR_ID,
+			CR_DT
+		) VALUES(
+			#{GUBUN},
+			#{CATEGORY},
+			#{SUB_MEMO},
+			#{FNDATE},
+			#{MONEY},
+			#{MEMO},
+			'N',
+			#{DEL_ID},
+			#{SESS_EMAIL},
+			NOW()
+		)
+	</insert>
+
+	<update id="updateFinaceData">
+		UPDATE CH_FINANCE SET
+			GUBUN = #{GUBUN},
+			CATEGORY = #{GUBUN},
+			SUB_MEMO = #{GUBUN},
+			FNDATE = #{GUBUN},
+			MONEY = #{GUBUN},
+			MEMO = #{GUBUN},
+			UP_ID = #{SESS_EMAIL},
+			UP_DT = NOW()
+		WHERE
+			FNNO = #{FNNO}
+	</update>
+	
+	<delete id="deleteFinanceData">
+		UPDATE CH_FINANCE SET 
+			DEL_YN ='Y',
+			UP_DT = NOW()
+		WHERE
+			FNNO = #{FNNO}
+	</delete>
+
+</mapper>

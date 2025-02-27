@@ -28,6 +28,22 @@ public interface UserMapper {
 
 	void deleteFamilyInfo(HashMap<String, Object> map) throws Exception;
 
+	void insertPrayData(Map<String, Object> paramMap) throws Exception;
+	
+	void updatePrayData(Map<String, Object> paramMap) throws Exception;
+	
+	void deletePrayData(Map<String, Object> paramMap) throws Exception;
+
+	List<Map<Object, String>> selectPrayList(Map<String, Object> paramMap) throws Exception;
+
+	List<Map<Object, String>> selectPrayDtList(Map<String, Object> paramMap) throws Exception;
+
+	void insertPrayDtData(Map<String, Object> paramMap) throws Exception;
+	
+	void updatePrayDtData(Map<String, Object> paramMap) throws Exception;
+	
+	void deletePrayDtData(Map<String, Object> paramMap) throws Exception;
+
 	
 	
 }

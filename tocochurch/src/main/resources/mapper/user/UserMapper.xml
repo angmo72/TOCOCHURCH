@@ -165,4 +165,138 @@
 		WHERE FAMILY_CODE = #{FAMILY_CODE}
 		AND USER_NM = #{USER_NM} 
 	</delete>
+	
+	<select id="selectPrayList" resultType="Map">
+		SELECT
+			PRNO,
+			USER_CODE,
+			USER_NM,
+			GUBUN,
+			GET_CODE_NAME('CH007',GUBUN) AS GUBUN_NM,
+			STATUS,
+			GET_CODE_NAME('CH008',STATUS) AS STATUS_NM,
+			SUBJECT,
+			SDATE,
+			EDATE,
+			MEMO,
+			CR_DT,
+			CR_ID,
+			UP_DT,
+			UP_ID,
+			(SELECT COUNT(DTNO) FROM CH_PRAYER_DT B WHERE B.PRNO =A.PRNO ) AS DT_CNT,
+			ROW_NUMBER() OVER(ORDER BY PRNO DESC ) AS ROW_NO
+		FROM CH_PRAYER A
+		WHERE 1=1
+		<if test='srch_gubun != null and srch_gubun !=""'>
+			AND  GUBUN = #{srch_gubun}
+		</if>
+		<if test='srch_status != null and srch_status !=""'>
+			AND  STATUS = #{srch_status}
+		</if>
+		<if test='scrh_user_nm != null and scrh_user_nm !=""'>
+			AND  USER_NM LIKE CONCAT('%' , #{scrh_user_nm} , '%')
+		</if>
+		<if test='scrh_subject != null and scrh_subject !=""'>
+			AND  USER_SUBJECT LIKE CONCAT('%' , #{scrh_subject} , '%')
+		</if>
+		<if test='srch_prno != null and srch_prno !=""'>
+			AND  PRNO = #{srch_prno}
+		</if>
+		ORDER BY PRNO DESC
+	</select>
+	
+	<insert id="insertPrayData">
+		INSERT INTO CH_PRAYER (
+			USER_CODE,
+			USER_NM,
+			GUBUN,
+			STATUS,
+			SUBJECT,
+			SDATE,
+			EDATE,
+			MEMO,
+			CR_DT,
+			CR_ID
+		) VALUES(
+			#{frm_user_code},
+			#{frm_user_nm},
+			#{frm_gubun},
+			#{frm_status},
+			#{frm_subject},
+			#{frm_sdate},
+			CASE WHEN #{frm_edate} = '' THEN NULL ELSE #{frm_edate} END,
+			#{frm_memo},
+			now(),
+			#{SESS_EMAIL}
+		)
+	</insert>
+
+	<update id="updatePrayData">
+		UPDATE CH_PRAYER SET
+			USER_CODE = #{frm_user_code},
+			USER_NM = #{frm_user_nm},
+			GUBUN = #{frm_gubun},
+			STATUS = #{frm_status},
+			SUBJECT = #{frm_subject},
+			SDATE = #{frm_sdate},
+			EDATE = CASE WHEN #{frm_edate} = '' THEN NULL ELSE #{frm_edate} END,
+			MEMO = #{frm_memo},
+			UP_DT = now(),
+			UP_ID = #{SESS_EMAIL}
+		WHERE
+			PRNO = #{frm_prno}
+	</update>
+	
+	<delete id="deletePrayData">
+		DELETE FROM CH_PRAYER
+		WHERE PRNO = #{frm_prno}
+	</delete>
+	
+	<select id="selectPrayDtList" resultType="Map">
+		<![CDATA[
+		SELECT
+			DTNO,
+			PRNO,
+			MEMO,
+			REPLACE(MEMO,'\n','<br>') AS MEMO_VIEW,
+			IFNULL(UP_DT,CR_DT) AS UP_DT,
+			IFNULL(UP_ID,CR_ID) AS UP_ID,
+			ROW_NUMBER() OVER(ORDER BY DTNO DESC ) AS ROW_NO
+		FROM CH_PRAYER_DT
+		WHERE 1=1
+			AND  PRNO = #{srch_prno}
+		ORDER BY DTNO DESC
+		]]>
+	</select>
+	
+	<insert id="insertPrayDtData">
+		INSERT INTO CH_PRAYER_DT (
+			PRNO,
+			MEMO,
+			CR_DT,
+			CR_ID
+		) VALUES(
+			#{frm_dt_prno},
+			#{frm_dt_memo},
+			now(),
+			#{SESS_EMAIL}
+		)
+	</insert>
+
+	<update id="updatePrayDtData">
+		UPDATE CH_PRAYER_DT SET
+			MEMO = #{frm_dt_memo},
+			UP_DT = now(),
+			UP_ID = #{SESS_EMAIL}
+		WHERE DTNO = #{frm_dt_dtno}
+		AND PRNO = #{frm_dt_prno}
+	</update>
+	
+	<delete id="deletePrayDtData">
+		DELETE FROM CH_PRAYER_DT
+		WHERE DTNO = #{frm_dt_dtno}
+		AND PRNO = #{frm_dt_prno}
+	</delete>
+
+	
 </mapper>

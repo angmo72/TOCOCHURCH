@@ -64,5 +64,45 @@ public class UserService {
 		userMapper.deleteFamilyInfo(map);
 	}
 
+	public void insertPrayData(Map<String, Object> paramMap)  throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.insertPrayData(paramMap);
+	}
+	
+	public void updatePrayData(Map<String, Object> paramMap)  throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.updatePrayData(paramMap);
+	}
+	
+	public void deletePrayData(Map<String, Object> paramMap)  throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.deletePrayData(paramMap);
+	}
+
+	public List<Map<Object, String>> selectPrayList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.selectPrayList(paramMap);
+	}
+
+	public List<Map<Object, String>> selectPrayDtList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.selectPrayDtList(paramMap);
+	}
+
+	public void insertPrayDtData(Map<String, Object> paramMap)  throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.insertPrayDtData(paramMap);
+	}
+	
+	public void updatePrayDtData(Map<String, Object> paramMap)  throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.updatePrayDtData(paramMap);
+	}
+	
+	public void deletePrayDtData(Map<String, Object> paramMap)  throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.deletePrayDtData(paramMap);
+	}
+
 
 }
