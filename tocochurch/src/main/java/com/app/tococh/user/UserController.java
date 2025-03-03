@@ -30,20 +30,20 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("userEdite")
+	@GetMapping("/userEdite.do")
 	public String userEdit() throws Exception {
 		
 		return "user/userEdite";
 	}
 	
-	@GetMapping("userPray")
+	@GetMapping("/userPray.do")
 	public String userManager() throws Exception {
 		
 		return "user/userPray";
 	}	
 	
 	@ResponseBody
-	@RequestMapping("/userPrayForm")
+	@RequestMapping("/userPrayForm.do")
 	public ModelAndView userPrayForm(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, HttpSession session, ModelAndView mv) throws Exception {
 		
 		System.out.println(paramMap);
@@ -55,7 +55,7 @@ public class UserController {
 	}	
 	
 	@ResponseBody
-	@RequestMapping("/selectUserList")
+	@RequestMapping("/selectUserList.do")
 	public HashMap<String, Object> selectUserList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -79,7 +79,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/selectOneUser")
+	@RequestMapping("/selectOneUser.do")
 	public HashMap<String, Object> selectOneUser(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -100,7 +100,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/saveUserInfo")
+	@RequestMapping("/saveUserInfo.do")
 	public HashMap<String, Object> saveMstCode(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -134,7 +134,7 @@ public class UserController {
 
 	
 	@ResponseBody
-	@RequestMapping("/getFamilyList")
+	@RequestMapping("/getFamilyList.do")
 	public HashMap<String, Object> getFamilyList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -154,7 +154,7 @@ public class UserController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/svaeFamilyInfo")
+	@RequestMapping("/svaeFamilyInfo.do")
 	public HashMap<String, Object> svaeFamilyInfo(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -232,7 +232,7 @@ public class UserController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/selectPrayList")
+	@RequestMapping("/selectPrayList.do")
 	public HashMap<String, Object> selectPrayList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -248,7 +248,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/selectPrayOneData")
+	@RequestMapping("/selectPrayOneData.do")
 	public HashMap<String, Object> selectPrayOneData(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -264,7 +264,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/savePrayData")
+	@RequestMapping("/savePrayData.do")
 	public HashMap<String, Object> savePrayData(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -298,7 +298,7 @@ public class UserController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/selectPrayDtList")
+	@RequestMapping("/selectPrayDtList.do")
 	public HashMap<String, Object> selectPrayDtList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -314,7 +314,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/savePrayDtData")
+	@RequestMapping("/savePrayDtData.do")
 	public HashMap<String, Object> savePrayDtData(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();

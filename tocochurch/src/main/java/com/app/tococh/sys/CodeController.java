@@ -28,7 +28,7 @@ public class CodeController {
 		this.codeService = codeService;
 	}
 
-	@GetMapping("/codeListView")
+	@GetMapping("/codeListView.do")
 	public String viewCodeList(HttpServletRequest request, Model model) throws Exception {
 			
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
@@ -42,7 +42,7 @@ public class CodeController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/getMstCodeList")
+	@RequestMapping("/getMstCodeList.do")
 	public HashMap<String, Object> getMstCodeList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -59,7 +59,7 @@ public class CodeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getDtlCodeList")
+	@RequestMapping("/getDtlCodeList.do")
 	public HashMap<String, Object> getDtlCodeList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -78,7 +78,7 @@ public class CodeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/saveMstCode")
+	@RequestMapping("/saveMstCode.do")
 	public HashMap<String, Object> saveMstCode(HttpServletRequest request,  @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -125,7 +125,7 @@ public class CodeController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/saveDtlCode")
+	@RequestMapping("/saveDtlCode.do")
 	public HashMap<String, Object> saveDtlCode(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();

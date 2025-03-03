@@ -27,7 +27,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         // 2. 회원 정보 체크
         if (sessUserEmail == null || sessUserEmail.equals("") ) {
-            response.sendRedirect("/login");
+            response.sendRedirect("/login.do");
             return false;
         }
 

@@ -31,8 +31,6 @@ public class MainController {
 
 	
 	@GetMapping("/")
-//	public String homeRoot() {
-//	@GetMapping(value = {"","/"})
 	public String homeRoot(HttpServletRequest request, Model model) {
 
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
@@ -43,13 +41,25 @@ public class MainController {
 		
 		return "index";
 	}
+	
+	@GetMapping("/churcherp.do")
+	public String manageHome(HttpServletRequest request, Model model) {
+
+		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
+		String sessName = (String) request.getSession().getAttribute("sessUserName");
+
+		model.addAttribute("sessEmail", sessEmail);
+		model.addAttribute("sessName", sessName);
+		
+		return "churcherp";
+	}	
 
 	
-	@RequestMapping("loginProc")
+	@RequestMapping("loginProc.do")
 	@ResponseBody
 	public ModelAndView loginProc(HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception {
 		
-		Map srchMap= new HashMap<String, Object>();
+		HashMap<String, Object> srchMap= new HashMap<String, Object>();
 		srchMap.put("USER_EMAIL", request.getParameter("userEmail"));
 		srchMap.put("USER_PW", request.getParameter("userPw"));
 		
@@ -66,15 +76,15 @@ public class MainController {
 			String sessUserEmail = (String) session.getAttribute("sessUserEmail");
 			
 			
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/churcherp.do");
 		}else {
 			//회원정보가 달라 
-			mv.setViewName("/loginForm");
+			mv.setViewName("/loginForm.do");
 		}
 		return mv;
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("/login.do")
 	public String loign() {
 		System.out.println(" login를 호출합니다. ");
 		return "loginForm";
@@ -82,7 +92,7 @@ public class MainController {
 	
 	
 	//로그아웃
-	@GetMapping("loginOut")
+	@GetMapping("loginOut.do")
 	public String loginOut(HttpSession session) {
 		session.invalidate();		
 		return "redirect:/";
@@ -90,7 +100,7 @@ public class MainController {
 	
 	//세션정보조회
 	@ResponseBody
-	@RequestMapping("getSessionInfo")
+	@RequestMapping("getSessionInfo.do")
 	public HashMap<String, Object> getSessionInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");

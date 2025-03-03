@@ -21,13 +21,9 @@
     <script type="text/javascript" src="/jqwidgets/jqxdatetimeinput.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxcalendar.js"></script>
 
-<!--     <script type="text/javascript" src="/jqwidgets/jqxmenu.js"></script> -->
     <script type="text/javascript" src="/jqwidgets/jqxgrid.edit.js"></script> 
-<!--     <script type="text/javascript" src="/jqwidgets/jqxgrid.filter.js"></script>  -->
     
-<!--     <script type="text/javascript" src="/jqwidgets/jqxnumberinput.js"></script> -->
     <script type="text/javascript" src="/jqwidgets/jqxwindow.js"></script>
-<!--     <script type="text/javascript" src="/jqwidgets/jqxinput.js"></script> -->
 
     <script type="text/javascript">
     var datafields1 = "";
@@ -240,7 +236,7 @@
         	fnEditable(true);
         	fnFormInit();
         	
-			var url = "/user/selectUserList";
+			var url = "/user/selectUserList.do";
 			// prepare the data
 			var source =
 			{
@@ -281,7 +277,7 @@
         	$("#fmDelBtn").removeClass("d-none");
 
  		  	$.ajax({
-		  	    url: '/user/selectOneUser',
+		  	    url: '/user/selectOneUser.do',
 		  	    method: 'post',
 		  	    data: {sch_userCode : userCode},		  	    
 		  	    dataType : 'json',
@@ -382,7 +378,7 @@
         	if(result == true){	
         	
 	 		  	$.ajax({
-			  	    url: '/user/saveUserInfo',
+			  	    url: '/user/saveUserInfo.do',
 			  	    method: 'post',
 			  	    data: informData,		  	    
 			  	    dataType : 'json',
@@ -459,7 +455,7 @@
 
         function getFamilyList(userCode){
 			
-        	var url = "/user/getFamilyList";
+        	var url = "/user/getFamilyList.do";
 			var source =
 			{
 				method: 'post',
@@ -567,7 +563,7 @@
         	}
         	
  		  	$.ajax({
-		  	    url: '/user/svaeFamilyInfo',
+		  	    url: '/user/svaeFamilyInfo.do',
 		  	    method: 'post',
 		  	    data: {
 		  	    	saveRows : JSON.stringify(saveRows)

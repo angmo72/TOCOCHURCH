@@ -37,7 +37,7 @@
 					return;
 				}
 				//폼 내부의 데이터를 전송할 주소
-				document.form1.action= "/loginProc";
+				document.form1.action= "/loginProc.do";
 				document.form1.submit(); //제출
 			});
     	});

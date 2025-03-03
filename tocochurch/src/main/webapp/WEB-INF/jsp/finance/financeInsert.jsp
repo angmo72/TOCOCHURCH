@@ -202,7 +202,7 @@
         
         //조회
         function fnSearchFinanceList(){
-			var url = "/finance/searchFinanceList";
+			var url = "/finance/searchFinanceList.do";
 			// prepare the data
 			var source =
 			{
@@ -268,7 +268,7 @@
         	if(result == true){	
         	
 	 		  	$.ajax({
-			  	    url: '/finance/saveFinanceData',
+			  	    url: '/finance/saveFinanceData.do',
 			  	    method: 'post',
 			  	    data: informData,		  	    
 			  	    dataType : 'json',
@@ -334,7 +334,7 @@
       	    	var informData = frm.serialize();
         		
 	 		  	$.ajax({
-			  	    url: '/finance/deleteFinanceData',
+			  	    url: '/finance/deleteFinanceData.do',
 			  	    method: 'post',
 			  	    data: informData,		  	    
 			  	    dataType : 'json',

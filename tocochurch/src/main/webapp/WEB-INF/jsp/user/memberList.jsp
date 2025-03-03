@@ -170,7 +170,7 @@
         }
         
         function searchManager(){
-			var url = "/member/selectManagerList";
+			var url = "/member/selectManagerList.do";
 			// prepare the data
 			srchUserNm
 			
@@ -278,7 +278,7 @@
         	}
         	
  		  	$.ajax({
-		  	    url: '/member/saveManagerInfo',
+		  	    url: '/member/saveManagerInfo.do',
 		  	    method: 'post',
 		  	    data: {
 		  	    	saveRows : JSON.stringify(saveRows)

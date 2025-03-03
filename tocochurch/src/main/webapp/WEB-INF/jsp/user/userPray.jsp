@@ -93,7 +93,7 @@
         }
         
         function searchPrayList(){
-			var url = "/user/selectPrayList";
+			var url = "/user/selectPrayList.do";
 			// prepare the data
 			var source =
 			{
@@ -131,7 +131,7 @@
         	
         	$("#srch_prno").val(prno);
 
-        	$("#parySearchFrom").attr("action", "/user/userPrayForm");
+        	$("#parySearchFrom").attr("action", "/user/userPrayForm.do");
     		$("#parySearchFrom").attr("method", "post");
         	$("#parySearchFrom").submit();
         }

@@ -144,7 +144,7 @@
         	if(prno != null){
         		
 	 		  	$.ajax({
-			  	    url: '/user/selectPrayOneData',
+			  	    url: '/user/selectPrayOneData.do',
 			  	    method: 'post',
 			  	    data: { srch_prno:prno },		  	    
 			  	    dataType : 'json',
@@ -228,7 +228,7 @@
         	if(result == true){	
         	
 	 		  	$.ajax({
-			  	    url: '/user/savePrayData',
+			  	    url: '/user/savePrayData.do',
 			  	    method: 'post',
 			  	    data: informData,		  	    
 			  	    dataType : 'json',
@@ -257,7 +257,7 @@
         }
         
         function fnPrayList(){
-        	document.location.href="/user/userPray";
+        	document.location.href="/user/userPray.do";
         }
         
         //응답과정
@@ -265,7 +265,7 @@
         	
         	$('#grid').jqxGrid('clear');
         	
-			var url = "/user/selectPrayDtList";
+			var url = "/user/selectPrayDtList.do";
 			// prepare the data
 			var source =
 			{
@@ -317,7 +317,7 @@
         	if(result == true){	
         	
 	 		  	$.ajax({
-			  	    url: '/user/savePrayDtData',
+			  	    url: '/user/savePrayDtData.do',
 			  	    method: 'post',
 			  	    data: informData,		  	    
 			  	    dataType : 'json',

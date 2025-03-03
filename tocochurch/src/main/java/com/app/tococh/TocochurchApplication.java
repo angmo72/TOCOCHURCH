@@ -1,19 +1,18 @@
 package com.app.tococh;
 
-import javax.sql.DataSource;
-
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-
-import jakarta.annotation.Resource;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class TocochurchApplication {
+public class TocochurchApplication extends SpringBootServletInitializer {
 
+   @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(TocochurchApplication.class);
+    }	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(TocochurchApplication.class, args);
 	}

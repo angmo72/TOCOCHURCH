@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class offertoryController {
 
 	
-	@GetMapping("/offerInsert")
+	@GetMapping("/offerInsert.do")
 	public String offerInsert() throws Exception {
 		
 		System.out.println("헌금등록");
@@ -18,7 +18,7 @@ public class offertoryController {
 	}
 	
 	
-	@GetMapping("/offerManager")
+	@GetMapping("/offerManager.do")
 	public String offerManager() throws Exception {
 		
 		System.out.println("헌금등록");

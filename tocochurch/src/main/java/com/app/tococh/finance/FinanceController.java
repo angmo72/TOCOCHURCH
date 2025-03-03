@@ -25,7 +25,7 @@ public class FinanceController {
 		this.financeService = financeService;
 	}
 	
-	@GetMapping("/financeInsert")
+	@GetMapping("/financeInsert.do")
 	public String financeInsert() throws Exception {
 		
 		System.out.println("재정등록");
@@ -37,7 +37,7 @@ public class FinanceController {
 		return "finance/financeInsert";
 	}
 	
-	@GetMapping("/financeManager")
+	@GetMapping("/financeManager.do")
 	public String financeManager() throws Exception {
 		
 		System.out.println("재정등록");
@@ -51,7 +51,7 @@ public class FinanceController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/searchFinanceList")
+	@RequestMapping("/searchFinanceList.do")
 	public HashMap<String, Object> searchFinanceList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -68,7 +68,7 @@ public class FinanceController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/saveFinanceData")
+	@RequestMapping("/saveFinanceData.do")
 	public HashMap<String, Object> saveFinanceData(HttpServletRequest request,  @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -106,7 +106,7 @@ public class FinanceController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/deleteFinanceData")
+	@RequestMapping("/deleteFinanceData.do")
 	public HashMap<String, Object> deleteFinanceData(HttpServletRequest request,  @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();

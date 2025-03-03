@@ -9,7 +9,7 @@ var sessionInfo
 function fnGetSessionInfo(){
 	
 	$.ajax({
-	    url: '/getSessionInfo',
+	    url: '/getSessionInfo.do',
 	    method: 'post',
 	    data: {},		  	    
 	    dataType : 'json',
@@ -56,7 +56,7 @@ function fnGetCodeListUrl(url, objId, grpCode, value, width, height){
 //그리드중 수정된 데이터 조회
 //fnGetCodeList("objId아이디", "그룹코드");
 function fnGetCodeList(objId, grpCode, value, width, height){
-	var url = "/sysCode/getDtlCodeList";
+	var url = "/sysCode/getDtlCodeList.do";
 	
 	var source =
 	{
@@ -106,7 +106,7 @@ function fnSetCodeDiv(objId, dataAdapter, addStr){
 
 //fnGridCodeList("objId아이디", "그룹코드");
 function fnGridCodeList(grpCode, value, width, height){
-	var url = "/sysCode/getDtlCodeList";
+	var url = "/sysCode/getDtlCodeList.do";
 	
 	var source =
 	{
@@ -182,7 +182,7 @@ function fnCommUserSearch(mode, callbackObj){
 	];
 	
 	
-	var url = "/user/selectUserList";
+	var url = "/user/selectUserList.do";
 	var source =
 	{
 		method: 'post',

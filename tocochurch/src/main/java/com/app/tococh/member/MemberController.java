@@ -31,7 +31,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
-	@GetMapping("/memberListView")
+	@GetMapping("/memberListView.do")
 	public ModelAndView viewCodeList(HttpServletRequest request, Model model, ModelAndView mv) throws Exception {
 			
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
@@ -46,7 +46,7 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/selectManagerList")
+	@RequestMapping("/selectManagerList.do")
 	public HashMap<String, Object> selectManagerList(@RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
@@ -67,7 +67,7 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/saveManagerInfo")
+	@RequestMapping("/saveManagerInfo.do")
 	public HashMap<String, Object> saveManagerInfo(HttpServletRequest request,  @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();

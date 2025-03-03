@@ -17,14 +17,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //                .addPathPatterns("/**/*")
                 .excludePathPatterns(
                 		"/"
+                		,"/img/*.*"
                 		,"/css/*.*"
                 		,"/js/*.*"
                 		,"/*.ico"
                 		,"/error"
-                		,"/login"
-                		,"/loginProc"
-                		,"/loginOut"
-                		,"/getSessionInfo"
+                		,"/login.do"
+                		,"/loginProc.do"
+                		,"/loginOut.do"
+                		,"/getSessionInfo.do"
                 		);
     }
 

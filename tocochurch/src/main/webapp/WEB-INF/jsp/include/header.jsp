@@ -83,7 +83,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-4" href="/">함께가는교회</a>
+            <a class="navbar-brand ps-4" href="/churcherp.do">함께가는교회</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <ul  class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -98,7 +98,7 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
 <!--                         <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="/loginOut">Logout</a></li>
+                        <li><a class="dropdown-item" href="/loginOut.do">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -115,8 +115,8 @@
                             </a>
                             <div class="collapse" id="chUserLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/user/userEdite">교인관리</a>
-                                    <a class="nav-link" href="/user/userPray">중보기도 및 관리</a>
+                                    <a class="nav-link" href="/user/userEdite.do">교인관리</a>
+                                    <a class="nav-link" href="/user/userPray.do">중보기도 및 관리</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#offerToryLayouts" aria-expanded="false" aria-controls="offerToryLayouts">
@@ -126,8 +126,8 @@
                             </a>
                             <div class="collapse" id="offerToryLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/offertory/offerInsert">헌금등록</a>
-                                    <a class="nav-link" href="/offertory/offerManager">헌금조회</a>
+                                    <a class="nav-link" href="/offertory/offerInsert.do">헌금등록</a>
+                                    <a class="nav-link" href="/offertory/offerManager.do">헌금조회</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#financeLayouts" aria-expanded="false" aria-controls="financeLayouts">
@@ -137,8 +137,8 @@
                             </a>
                             <div class="collapse" id="financeLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/finance/financeInsert">재정등록</a>
-                                    <a class="nav-link" href="/finance/financeManager">재정조회</a>
+                                    <a class="nav-link" href="/finance/financeInsert.do">재정등록</a>
+                                    <a class="nav-link" href="/finance/financeManager.do">재정조회</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#systemLayouts" aria-expanded="false" aria-controls="systemLayouts">
@@ -148,9 +148,9 @@
                             </a>
                             <div class="collapse" id="systemLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/sys/churchInfo">교회정보설정</a>
-                                    <a class="nav-link" href="/member/memberListView">관리자 관리</a>
-                                    <a class="nav-link" href="/sysCode/codeListView">기준정보 관리</a>
+                                    <a class="nav-link" href="/sys/churchInfo.do">교회정보설정</a>
+                                    <a class="nav-link" href="/member/memberListView.do">관리자 관리</a>
+                                    <a class="nav-link" href="/sysCode/codeListView.do">기준정보 관리</a>
                                 </nav>
                             </div>
                             
