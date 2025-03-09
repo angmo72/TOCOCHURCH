@@ -183,6 +183,11 @@ public class UserController {
 	        map.put("USER_NM",obj.getString("USER_NM"));
 	        map.put("GENDER",obj.getString("GENDER"));
 	        map.put("RELATION",obj.getString("RELATION"));
+	        if(obj.getString("USER_CODE") != null )
+	        	map.put("USER_CODE",obj.getString("USER_CODE"));
+	        else 
+	        	map.put("USER_CODE","");
+	        
 	        if(obj.getString("BIRTHDAY") != null )
 	        	map.put("BIRTHDAY",obj.getString("BIRTHDAY"));
 	        else 
@@ -345,5 +350,6 @@ public class UserController {
 		
 		return reMap;
 	}
+		
 	
 }

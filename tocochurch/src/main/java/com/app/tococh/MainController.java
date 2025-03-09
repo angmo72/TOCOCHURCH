@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.app.tococh.user.service.MemberService;
+import com.app.common.SHA256;
+import com.app.tococh.member.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -59,27 +60,44 @@ public class MainController {
 	@ResponseBody
 	public ModelAndView loginProc(HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception {
 		
+		SHA256 sha256 = new SHA256();
+		
 		HashMap<String, Object> srchMap= new HashMap<String, Object>();
 		srchMap.put("USER_EMAIL", request.getParameter("userEmail"));
-		srchMap.put("USER_PW", request.getParameter("userPw"));
+				
+        String userPw = request.getParameter("userPw");
+        userPw = sha256.encrypt(userPw);
+        
+//        System.out.println("userPw : "+ userPw);
 		
 		Map loginMap = memberService.loginProc(srchMap);
+		
 		if(loginMap != null) {
 			
-			memberService.updateLastLogin(srchMap);
+//			System.out.println("loginPw : "+ loginMap.get("user_pw"));
 			
-			session.setAttribute("sessUserEmail", loginMap.get("user_email"));
-			session.setAttribute("sessUserName", loginMap.get("user_nm"));
-			// 세션 유지기간 30분
-			session.setMaxInactiveInterval(60*30);
+			if(userPw.equals(loginMap.get("user_pw"))) {
 			
-			String sessUserEmail = (String) session.getAttribute("sessUserEmail");
+				memberService.updateLastLogin(srchMap);
+				
+				session.setAttribute("sessUserEmail", loginMap.get("user_email"));
+				session.setAttribute("sessUserName", loginMap.get("user_nm"));
+				// 세션 유지기간 30분
+				session.setMaxInactiveInterval(60*30);
+				
+				String sessUserEmail = (String) session.getAttribute("sessUserEmail");
+				
+				
+				mv.setViewName("redirect:/churcherp.do");
+				
+			}else {
+				//비밀번호가 다름
+				mv.setViewName("redirect:/login.do");
+			}
 			
-			
-			mv.setViewName("redirect:/churcherp.do");
 		}else {
 			//회원정보가 달라 
-			mv.setViewName("/loginForm.do");
+			mv.setViewName("redirect:/login.do");
 		}
 		return mv;
 	}

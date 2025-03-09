@@ -38,7 +38,7 @@
 		<if test='SCH_USERCODE != null and SCH_USERCODE !=""'>
 			AND  USER_CODE LIKE CONCAT('%' , #{SCH_USERCODE} , '%')
 		</if>
-		ORDER BY USER_CODE DESC
+		ORDER BY USER_NM ASC
 	</select>
 	
 	<select id="selectOneUser" resultType="Map">
@@ -163,46 +163,48 @@
 	<delete id="deleteFamilyInfo">
 		DELETE FROM CH_FAMILY
 		WHERE FAMILY_CODE = #{FAMILY_CODE}
-		AND USER_NM = #{USER_NM} 
+		AND USER_CODE = #{USER_CODE}
+		AND USER_NM = #{USER_NM}  
 	</delete>
 	
 	<select id="selectPrayList" resultType="Map">
 		SELECT
-			PRNO,
-			USER_CODE,
-			USER_NM,
-			GUBUN,
-			GET_CODE_NAME('CH007',GUBUN) AS GUBUN_NM,
-			STATUS,
-			GET_CODE_NAME('CH008',STATUS) AS STATUS_NM,
-			SUBJECT,
-			SDATE,
-			EDATE,
-			MEMO,
-			CR_DT,
-			CR_ID,
-			UP_DT,
-			UP_ID,
-			(SELECT COUNT(DTNO) FROM CH_PRAYER_DT B WHERE B.PRNO =A.PRNO ) AS DT_CNT,
-			ROW_NUMBER() OVER(ORDER BY PRNO DESC ) AS ROW_NO
-		FROM CH_PRAYER A
+			A.PRNO,
+			A.USER_CODE,
+			A.USER_NM,
+			A.GUBUN,
+			GET_CODE_NAME('CH007',A.GUBUN) AS GUBUN_NM,
+			A.STATUS,
+			GET_CODE_NAME('CH008',A.STATUS) AS STATUS_NM,
+			A.SUBJECT,
+			A.SDATE,
+			A.EDATE,
+			A.MEMO,
+			A.CR_DT,
+			A.CR_ID,
+			A.UP_DT,
+			A.UP_ID,
+			(SELECT COUNT(C.DTNO) FROM CH_PRAYER_DT C WHERE C.PRNO =A.PRNO ) AS DT_CNT,
+			(@ROWNUM:=@ROWNUM+1) AS ROW_NO
+		FROM CH_PRAYER A ,
+			(SELECT @ROWNUM:=0 FROM DUAL) B
 		WHERE 1=1
 		<if test='srch_gubun != null and srch_gubun !=""'>
-			AND  GUBUN = #{srch_gubun}
+			AND  A.GUBUN = #{srch_gubun}
 		</if>
 		<if test='srch_status != null and srch_status !=""'>
-			AND  STATUS = #{srch_status}
+			AND  A.STATUS = #{srch_status}
 		</if>
 		<if test='scrh_user_nm != null and scrh_user_nm !=""'>
-			AND  USER_NM LIKE CONCAT('%' , #{scrh_user_nm} , '%')
+			AND  A.USER_NM LIKE CONCAT('%' , #{scrh_user_nm} , '%')
 		</if>
 		<if test='scrh_subject != null and scrh_subject !=""'>
-			AND  USER_SUBJECT LIKE CONCAT('%' , #{scrh_subject} , '%')
+			AND  A.USER_SUBJECT LIKE CONCAT('%' , #{scrh_subject} , '%')
 		</if>
 		<if test='srch_prno != null and srch_prno !=""'>
-			AND  PRNO = #{srch_prno}
+			AND  A.PRNO = #{srch_prno}
 		</if>
-		ORDER BY PRNO DESC
+		ORDER BY A.PRNO DESC
 	</select>
 	
 	<insert id="insertPrayData">
@@ -253,20 +255,21 @@
 	</delete>
 	
 	<select id="selectPrayDtList" resultType="Map">
-		<![CDATA[
 		SELECT
-			DTNO,
-			PRNO,
-			MEMO,
-			REPLACE(MEMO,'\n','<br>') AS MEMO_VIEW,
-			IFNULL(UP_DT,CR_DT) AS UP_DT,
-			IFNULL(UP_ID,CR_ID) AS UP_ID,
-			ROW_NUMBER() OVER(ORDER BY DTNO DESC ) AS ROW_NO
-		FROM CH_PRAYER_DT
+			A.DTNO,
+			A.PRNO,
+			A.MEMO,
+			<![CDATA[
+			REPLACE(A.MEMO,'\n','<br>') AS MEMO_VIEW,
+			]]>
+			IFNULL(A.UP_DT,A.CR_DT) AS UP_DT,
+			GET_USER_NM('M',IFNULL(A.UP_ID,A.CR_ID)) AS UP_ID,
+			(@ROWNUM:=@ROWNUM+1) AS ROW_NO
+		FROM CH_PRAYER_DT A,
+			(SELECT @ROWNUM:=0 FROM DUAL) B
 		WHERE 1=1
-			AND  PRNO = #{srch_prno}
-		ORDER BY DTNO DESC
-		]]>
+			AND  A.PRNO = #{srch_prno}
+		ORDER BY A.DTNO DESC
 	</select>
 	
 	<insert id="insertPrayDtData">
@@ -297,6 +300,5 @@
 		WHERE DTNO = #{frm_dt_dtno}
 		AND PRNO = #{frm_dt_prno}
 	</delete>
-
 	
 </mapper>

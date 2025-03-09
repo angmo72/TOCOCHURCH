@@ -27,6 +27,7 @@
     <script type="text/javascript" src="/jqwidgets/jqxcombobox.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxdatetimeinput.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.aggregates.js"></script>
     
 
     <script type="text/javascript">
@@ -156,8 +157,8 @@
             $("#grid1").jqxGrid(
             {
                 width: "100%",
-                pageable: true,
-                pagesize :20,
+//                 pageable: true,
+//                 pagesize :20,
                 autoheight: true,
 //                 sortable: true,
                 altrows: true,
@@ -167,6 +168,9 @@
 //                 enabletooltips: true,
                 enablebrowserselection : true,
 //                 selectionmode: 'checkbox',
+				showaggregates: true,
+			    showstatusbar: true,
+// 			    statusbarheight: 50,
                 selectionmode: 'singlerow',
                 columns: [
                   { text: 'FNNO', datafield: 'FNNO', cellsalign: 'center',align: 'center', width: 80, hidden:true},
@@ -176,10 +180,37 @@
                   { text: '항목', datafield: 'CATEGORY', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 150 , hidden:true},
                   { text: '항목', datafield: 'CATEGORY_NM', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 150 },
                   { text: '세부내역', datafield: 'SUB_MEMO', columntype: 'textbox', cellsalign: 'left',align: 'center', width: 250 },
-                  { text: '수입', datafield: 'IN_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 100, cellsformat: 'd' },
-                  { text: '지출', datafield: 'OUT_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 100, cellsformat: 'd' },
-                  { text: '잔액', datafield: 'REST_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 130, cellsformat: 'd' },
-                  { text: '비고', datafield: 'MEMO', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 250 },
+                  { text: '수입', datafield: 'IN_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 130, cellsformat: 'd' 
+                      ,aggregates: [{
+                          '계': function (aggregatedValue, currentValue) {
+                              if (currentValue) {
+                                  return aggregatedValue + currentValue;
+                              }
+                              return aggregatedValue;
+                          }
+                      }]
+                  },
+                  { text: '지출', datafield: 'OUT_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 130, cellsformat: 'd' 
+                      ,aggregates: [{
+                          '계': function (aggregatedValue, currentValue) {
+                              if (currentValue) {
+                                  return aggregatedValue + currentValue;
+                              }
+                              return aggregatedValue;
+                          }
+                      }]
+                  },
+                  { text: '잔액', datafield: 'REST_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 160, cellsformat: 'd' 
+                      ,aggregates: [{
+                          '계': function (aggregatedValue, currentValue) {
+                              if (currentValue) {
+                                  return aggregatedValue + currentValue;
+                              }
+                              return aggregatedValue;
+                          }
+                      }]
+                  },
+                  { text: '비고', datafield: 'MEMO', columntype: 'textbox', cellsalign: 'center',align: 'center'},
                   { text: '수정', cellsalign: 'center',align: 'center', width: 60, cellsrenderer : fnViewButton, editable : false},
                 ]
             });
@@ -375,7 +406,7 @@
 							                        	년월:
 							                        </td>
 							                        <td align="left" class="col-xl-2">
-							                        	<div class="tbl-form-control w-50" id="srch_date" name="srch_date" /></div>
+							                        	<div class="tbl-form-control w-70" id="srch_date" name="srch_date" /></div>
 							                        </td>
 							                        <td align="right" class="col-xl-1">
 							                        	수입/지출:

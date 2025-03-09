@@ -1,4 +1,4 @@
-package com.app.tococh.user.mapper;
+package com.app.tococh.member.mapper;
 
 import java.util.HashMap;
 import java.util.List;

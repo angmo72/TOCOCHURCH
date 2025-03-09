@@ -3,8 +3,37 @@
 
 <mapper namespace="com.app.tococh.sys.mapper.SysMapper">
 
-	<select id="getChurchInfo" resultType="Map">
-		SELECT * FROM CHURCHINFO
+	<select id="selectChurchInfo" resultType="Map">
+		SELECT
+			CH_NAME,
+			CH_PHONE,
+			CH_ZIPCOD,
+			CH_ADDRESS,
+			CH_FAX,
+			CH_RESNO,
+			CH_LOGO,
+			CH_PASTOR1,
+			CH_PHONE1,
+			CH_PASTOR2,
+			CH_PHONE2
+		FROM
+			CHURCHINFO
 	</select>
+
+	<insert id="updateChurchInfo">
+		UPDATE CHURCHINFO
+		SET 
+			CH_NAME=#{frm_CH_NAME}
+			, CH_PHONE=#{frm_CH_PHONE}
+			, CH_ZIPCOD=#{frm_CH_ZIPCOD}
+			, CH_ADDRESS=#{frm_CH_ADDRESS}
+			, CH_FAX=#{frm_CH_FAX}
+			, CH_RESNO=#{frm_CH_RESNO}
+			, CH_LOGO=#{frm_CH_LOGO}
+			, CH_PASTOR1=#{frm_CH_PASTOR1}
+			, CH_PHONE1=#{frm_CH_PHONE1}
+			, CH_PASTOR2=#{frm_CH_PASTOR2}
+			, CH_PHONE2=#{frm_CH_PHONE2}
+	</insert>
 
 </mapper>

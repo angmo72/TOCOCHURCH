@@ -1,4 +1,4 @@
-package com.app.tococh.user.service;
+package com.app.tococh.member.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.app.tococh.user.mapper.MemberMapper;
+import com.app.tococh.member.mapper.MemberMapper;
 
 @Service
 public class MemberService {

@@ -19,9 +19,16 @@ public class SysService {
 		this.sysMapper = sysMapper;
 	}
 	
-	public Map<Object, String> getChurchInfo() throws Exception {
-		
-		return sysMapper.getChurchInfo();
+	public void updateChurchInfo(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		sysMapper.updateChurchInfo(paramMap);
 	}
 
+	public List<Map<Object, String>> selectChurchInfo(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return  sysMapper.selectChurchInfo(paramMap);
+	}
+
+	
+	
 }

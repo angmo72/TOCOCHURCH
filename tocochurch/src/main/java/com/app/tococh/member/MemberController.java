@@ -8,18 +8,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.app.tococh.user.service.MemberService;
+import com.app.common.SHA256;
+import com.app.tococh.member.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @RestController 
 @RequestMapping("/member/")
@@ -70,6 +68,8 @@ public class MemberController {
 	@RequestMapping("/saveManagerInfo.do")
 	public HashMap<String, Object> saveManagerInfo(HttpServletRequest request,  @RequestParam Map<String, Object> paramMap) throws Exception {
 		
+		SHA256 sha256 = new SHA256();
+		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
 		
 		HashMap<String, Object> map  = new HashMap<String, Object>();
@@ -82,7 +82,6 @@ public class MemberController {
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
 		String sessName = (String) request.getSession().getAttribute("sessUserName");
 
-		
 		// 배열의 모든 아이템을 출력합니다.
 		for (int i = 0; i < jArray.length(); i++) {
 			
@@ -91,11 +90,17 @@ public class MemberController {
 	        JSONObject obj = jArray.getJSONObject(i);
 	        String crud = obj.getString("CRUD");
 	        
+	        String userPw = obj.getString("USER_PW");
+	        if(!userPw.equals("****")) {
+	        	System.out.println("userPw : "  + userPw);
+	        	userPw = sha256.encrypt(userPw);
+	        }
+	        
 	        map.put("USER_EMAIL"	,obj.getString("USER_EMAIL"));
 	        map.put("USER_NM"		,obj.getString("USER_NM"));
 	        map.put("MENU_CTR"		,obj.getString("MENU_CTR"));
 	        map.put("MENU_CTR_NM"		,obj.getString("MENU_CTR_NM"));
-	        map.put("USER_PW"		,obj.getString("USER_PW"));
+	        map.put("USER_PW"		,userPw);
 	        map.put("SESS_EMAIL"	,sessEmail);
 	        if(obj.getString("MOBILE") != null )
 	        	map.put("MOBILE",obj.getString("MOBILE"));

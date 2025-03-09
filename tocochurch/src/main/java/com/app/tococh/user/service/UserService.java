@@ -104,5 +104,4 @@ public class UserService {
 		userMapper.deletePrayDtData(paramMap);
 	}
 
-
 }

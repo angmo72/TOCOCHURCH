@@ -5,40 +5,41 @@
 
 	<select id="searchFinanceList" resultType="Map">
 		SELECT
-			FNNO,
-			GUBUN,
-			GET_CODE_NAME('CH012',GUBUN) AS GUBUN_NM,
-			CATEGORY,
-			GET_CODE_NAME(CASE WHEN GUBUN ='FN010' THEN 'CH005' ELSE 'CH006' END ,CATEGORY) AS CATEGORY_NM,
-			SUB_MEMO,
-			FNDATE,
-			CAST(CASE WHEN GUBUN ='FN010' THEN MONEY ELSE '0' END AS UNSIGNED) AS IN_MONEY,
-			CAST(CASE WHEN GUBUN ='FN020' THEN MONEY ELSE '0' END AS UNSIGNED) AS OUT_MONEY,
-			SUM(CASE WHEN GUBUN ='FN020' THEN MONEY * -1 ELSE MONEY end ) OVER(order by FNDATE ASC, FNNO ASC) as REST_MONEY,
-			MONEY,
-			MEMO,
-			DEL_YN,
-			DEL_ID,
-			CR_ID,
-			CR_DT,
-			UP_ID,
-			UP_DT
-		FROM CH_FINANCE
+			A.FNNO,
+			A.GUBUN,
+			GET_CODE_NAME('CH012',A.GUBUN) AS GUBUN_NM,
+			A.CATEGORY,
+			GET_CODE_NAME(CASE WHEN A.GUBUN ='FN010' THEN 'CH005' ELSE 'CH006' END , A.CATEGORY) AS CATEGORY_NM,
+			A.SUB_MEMO,
+			A.FNDATE,
+			CAST(CASE WHEN A.GUBUN ='FN010' THEN A.MONEY ELSE 0 END AS UNSIGNED) AS IN_MONEY,
+			CAST(CASE WHEN A.GUBUN ='FN020' THEN A.MONEY ELSE 0 END AS UNSIGNED) AS OUT_MONEY,
+			@BF_SUM := @BF_SUM + CASE WHEN GUBUN ='FN020' THEN A.MONEY * -1 ELSE A.MONEY END  AS REST_MONEY, /*누적합계*/
+			A.MONEY,
+			A.MEMO,
+			A.DEL_YN,
+			A.DEL_ID,
+			A.CR_ID,
+			A.CR_DT,
+			A.UP_ID,
+			A.UP_DT
+		FROM CH_FINANCE A,
+			(SELECT @PARTITION:='', @BF_SUM:=0 ,@ROWNUM:=0 FROM DUAL) B
 		WHERE 1=1
 		<if test='srch_gubun != null and srch_gubun !=""'>
-			AND GUBUN =  #{srch_gubun}
+			AND A.GUBUN =  #{srch_gubun}
 		</if>
 		<if test='srch_category != null and srch_category !=""'>
-			AND CATEGORY =  #{srch_category}
+			AND A.CATEGORY =  #{srch_category}
 		</if>
 		<if test='srch_date != null and srch_date !=""'>
-			AND DATE_FORMAT(FNDATE, '%Y-%m') =  #{srch_date}
+			AND DATE_FORMAT(A.FNDATE, '%Y-%m') =  #{srch_date}
 		</if>
 		<if test='srch_sub_memo != null and srch_sub_memo !=""'>
-			AND  SUB_MEMO =  #{srch_sub_memo}
+			AND  A.SUB_MEMO =  #{srch_sub_memo}
 		</if>
-		AND DEL_YN='N'
-		ORDER BY FNDATE ASC, FNNO ASC
+		AND A.DEL_YN='N'
+		ORDER BY A.FNDATE ASC, A.FNNO ASC
 	</select>
 
 	<insert id="insertFinanceData">

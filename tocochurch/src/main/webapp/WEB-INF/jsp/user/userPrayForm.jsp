@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
     <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
     
@@ -365,7 +364,7 @@
                                 <div class="card" >
 	                                <div class="card-header" >
 	                                	<div class="float-start">
-											중보기도
+											중보 및 관리 내역
 	                                	</div>
 										<div class="float-end align-bottom">
 											<button class="btn btn-outline-dark btn-sm" id="btnPraySave" Onclick="fnPraySave()">저 장</button>
@@ -451,7 +450,7 @@
                                 <div class="card">
 	                                <div class="card-header" >
 	                                	<div class="float-start">
-											응답과정
+											경과 및 결과
 	                                	</div>
 										<div class="float-end">
 											<button class="btn btn-outline-dark btn-sm" id="btnPrayDtSave" Onclick="fnPrayDtSave()">저 장</button>

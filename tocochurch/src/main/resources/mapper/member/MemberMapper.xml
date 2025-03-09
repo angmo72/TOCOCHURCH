@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.app.tococh.user.mapper.MemberMapper">
+<mapper namespace="com.app.tococh.member.mapper.MemberMapper">
 
 	<select id="selectManagerList" resultType="Map">
 		SELECT 
-			USER_EMAIL, USER_PW, USER_NM, MOBILE, 
+			USER_EMAIL, '****' AS USER_PW, USER_NM, MOBILE, 
 			MENU_CTR,
 			MENU_CTR_NM, 
 			DATE_FORMAT(LAST_LOGIN, '%Y-%m-%d') AS LAST_LOGIN, 
 			PW_FAIL, 
 			DATE_FORMAT(CR_DT, '%Y-%m-%d') AS CR_DT, 
-			CR_ID, 
+			GET_USER_NM('M',CR_ID) AS CR_ID, 
 			DATE_FORMAT(UP_DT, '%Y-%m-%d') AS UP_DT, 
-			UP_ID
+			GET_USER_NM('M',UP_ID) AS UP_ID
 		FROM CH_MEMBER
 		WHERE 1=1
 		<if test='SRCH_EMAIL != null and SRCH_EMAIL !=""'>
@@ -32,7 +32,8 @@
 
 	<update id="updateManagerInfo">
 		UPDATE CH_MEMBER
-		SET USER_PW = #{USER_PW}, 
+		SET 
+		USER_PW 	= CASE WHEN #{USER_PW} != '****' THEN #{USER_PW}  ELSE USER_PW END,
 		USER_NM		= #{USER_NM}, 
 		MOBILE		= #{MOBILE}, 
 		MENU_CTR	= #{MENU_CTR}, 
@@ -51,7 +52,6 @@
 	<select id="loginProc" resultType="Map">
 		SELECT * FROM CH_MEMBER
 		WHERE USER_EMAIL = #{USER_EMAIL}
-		AND USER_PW = #{USER_PW}
 	</select>
 
 	<update id="updateLastLogin">
