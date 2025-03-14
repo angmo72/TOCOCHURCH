@@ -104,4 +104,9 @@ public class UserService {
 		userMapper.deletePrayDtData(paramMap);
 	}
 
+	public List<Map<Object, String>> getUserCodeData() throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.getUserCodeData();
+	}
+	
 }

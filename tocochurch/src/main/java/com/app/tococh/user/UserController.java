@@ -350,6 +350,21 @@ public class UserController {
 		
 		return reMap;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getUserCodeData.do")
+	public HashMap<String, Object> getUserCodeData(@RequestParam Map<String, Object> paramMap) throws Exception {
+		
+		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		List<Map<Object, String>>
+		
+		userCodeDataList = userService.getUserCodeData();
+			
+		reMap.put("data", userCodeDataList);
+		
+		return reMap;
+	}
 		
 	
 }

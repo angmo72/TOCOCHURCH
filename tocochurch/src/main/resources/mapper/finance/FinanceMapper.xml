@@ -72,11 +72,11 @@
 	<update id="updateFinaceData">
 		UPDATE CH_FINANCE SET
 			GUBUN = #{GUBUN},
-			CATEGORY = #{GUBUN},
-			SUB_MEMO = #{GUBUN},
-			FNDATE = #{GUBUN},
-			MONEY = #{GUBUN},
-			MEMO = #{GUBUN},
+			CATEGORY = #{CATEGORY},
+			SUB_MEMO = #{SUB_MEMO},
+			FNDATE = #{FNDATE},
+			MONEY = #{MONEY},
+			MEMO = #{MEMO},
 			UP_ID = #{SESS_EMAIL},
 			UP_DT = NOW()
 		WHERE

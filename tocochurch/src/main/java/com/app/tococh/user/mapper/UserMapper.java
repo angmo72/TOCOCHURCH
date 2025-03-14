@@ -44,5 +44,5 @@ public interface UserMapper {
 	
 	void deletePrayDtData(Map<String, Object> paramMap) throws Exception;
 
-	
+	List<Map<Object, String>> getUserCodeData() throws Exception;
 }

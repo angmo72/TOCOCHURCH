@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.tococh.offertory.mapper.OffertoryMapper">
+
+	<select id="offerUserList" resultType="Map">
+		SELECT
+			CHNO,
+			IN_DATE,
+			GET_CODE_NAME('CH005',GUBUN) AS GUBUN_NM,
+			GUBUN,
+			CH_USER_CODE,
+			CH_USER_NM,
+			USER_NAME,
+			MONEY,
+			RMK,
+			APPR_YN,
+			CR_ID,
+			CR_DT,
+			UP_ID,
+			UP_DT
+		FROM
+			CH_OFFERTORY
+		WHERE
+			APPR_YN = 'N'
+	</select>
+	
+	<insert id="insertOfferInfo">
+		INSERT INTO CH_OFFERTORY
+			(IN_DATE,
+			GUBUN,
+			CH_USER_CODE,
+			CH_USER_NM,
+			USER_NAME,
+			MONEY,
+			RMK,
+			APPR_YN,
+			CR_ID,
+			CR_DT)
+		VALUES
+			(#{offer_date},
+			#{offer_type},
+			#{offer_id},
+			#{offer_name},
+			#{offer_name2},
+			#{offer_amount},
+			#{offer_note},
+			'N',
+			#{SESS_EMAIL},
+			NOW())
+	</insert>
+	
+	<update id="updateOfferInfo">
+		UPDATE CH_OFFERTORY
+	    SET
+	        IN_DATE = #{offer_date},
+	        GUBUN = #{offer_type},
+	        CH_USER_CODE = #{offer_id},
+	        CH_USER_NM = #{offer_name},
+	        USER_NAME = #{offer_name2},
+	        MONEY = #{offer_amount},
+	        RMK = #{offer_note},
+	        APPR_YN = 'N',
+	        CR_ID = #{SESS_EMAIL},
+	        CR_DT = NOW()
+	    WHERE
+	        CHNO = #{ch_no}
+	</update>
+	
+	<delete id="deleteOfferInfo">
+	    DELETE FROM CH_OFFERTORY
+	    WHERE CHNO = #{ch_no}
+	</delete>
+</mapper>

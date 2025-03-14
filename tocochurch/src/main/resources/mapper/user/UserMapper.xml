@@ -301,4 +301,11 @@
 		AND PRNO = #{frm_dt_prno}
 	</delete>
 	
+	<select id="getUserCodeData">
+		SELECT 
+			USER_CODE AS CODE,
+			USER_NM AS CODE_NM
+		FROM CH_USER
+	</select>
+	
 </mapper>
