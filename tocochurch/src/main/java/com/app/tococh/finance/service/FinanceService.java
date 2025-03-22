@@ -36,5 +36,10 @@ public class FinanceService {
 		// TODO Auto-generated method stub
 		financeMapper.deleteFinanceData(map);
 	}
+
+	public List<Map<Object, String>> searchMngFinanceList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return financeMapper.searchMngFinanceList(paramMap);
+	}
 	
 }

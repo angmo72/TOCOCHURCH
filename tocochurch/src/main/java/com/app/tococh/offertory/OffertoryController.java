@@ -92,9 +92,72 @@ public class OffertoryController {
 		} else if(mode.equals("DELETE")) {
 			
 			offertoryService.deleteOfferInfo(paramMap);
+			
+		} else if(mode.equals("APPRAVOAL")) {
+			// 이력저장 
+			offertoryService.saveOffferInfoHis(paramMap);
+			//업데이트
+			offertoryService.approvalOfferInfo(paramMap);
+			
+			offertoryService.insertFinance(paramMap);
 
 		}
 			
+		reMap.put("data", "");
+		
+		return reMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/offerList.do")
+	public HashMap<String, Object> offerList(@RequestParam Map<String, Object> paramMap) throws Exception {
+		
+		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		List<Map<Object, String>> userList = offertoryService.offerList(paramMap);
+			
+		reMap.put("data", userList);
+		
+		return reMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateMngOfferInfo.do")
+	public HashMap<String, Object> updateMngOfferInfo(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
+		
+		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
+		String sessName = (String) request.getSession().getAttribute("sessUserName");
+		
+		System.out.println("paramMap :" + paramMap);
+		String mode = (String) paramMap.get("mode");
+		
+		paramMap.put("SESS_EMAIL",sessEmail);
+		
+		offertoryService.updateMngOfferInfo(paramMap);
+	
+		reMap.put("data", "");
+		
+		return reMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deletMngOfferInfo.do")
+	public HashMap<String, Object> deletMngOfferInfo(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
+		
+		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
+		String sessName = (String) request.getSession().getAttribute("sessUserName");
+		
+		System.out.println("paramMap :" + paramMap);
+		String mode = (String) paramMap.get("mode");
+		
+		paramMap.put("SESS_EMAIL",sessEmail);
+		
+		offertoryService.deletMngOfferInfo(paramMap);
+		
 		reMap.put("data", "");
 		
 		return reMap;

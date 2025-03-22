@@ -41,27 +41,41 @@
 			fnSetCalendar("frm_edate", "yyyy-MM-dd");
 			$("#frm_edate").val("");
 			
+            setGrid();
+            
+			//중보기도내용
+			fnSelectPrayOneData();
+
 			if(prno == null || prno == ""){			
 				$("#frm_mode").val("INSERT");
-				$("#btnPrayDelete").addClass("d-none"); //버튼 숨김
 				$("#prayDtForm").addClass("d-none");
 				$("#frm_dt_mode").val("INSERT");
 			} else { 
+				fnGetCodeList("frm_dt_status", "CH008");
 				$("#frm_mode").val("UPDATE");
-				$("#btnPrayDelete").removeClass("d-none"); //버튼 보임
 				$("#prayDtForm").removeClass("d-none");
 				$("#frm_dt_mode").val("INSERT");
 				$("#frm_dt_prno").val(prno);
 				
-	            setGrid();
-	            
-				//중보기도내용
-				fnSelectPrayOneData();
-				
 				//응답과정
 				fnSelectPrayDtData();
-
+				
 			}
+			
+			
+
+			//readOnly Setting
+			if(prno != null && prno !=""){
+				
+				fnSetBtn(true);
+				fnSetReadonly(true);
+				
+			} else {
+				
+				fnSetBtn(false);
+				fnSetReadonly(false);
+			}
+				
 			
 			
             datafields = [
@@ -140,7 +154,7 @@
         
         function fnSelectPrayOneData(){
             	
-        	if(prno != null){
+        	if(prno != null && prno !=""){
         		
 	 		  	$.ajax({
 			  	    url: '/user/selectPrayOneData.do',
@@ -155,10 +169,19 @@
 							$("#frm_user_nm").val(data.USER_NM);
 							$("#frm_gubun").val(data.GUBUN);
 							$("#frm_status").val(data.STATUS);
+							$("#frm_dt_status").val(data.STATUS);
 							$("#frm_subject").val(data.SUBJECT);
 							$("#frm_sdate").val(data.SDATE);
 							$("#frm_edate").val(data.EDATE);
 							$("#frm_memo").val(data.MEMO);
+							
+							//취소 및 응답완료가 되면 수정을 못하도록 막는다
+							if(data.STATUS =="S030" || data.STATUS =="S040"){
+								$("#btnModify").hide();
+								$("#dt_input_frm").addClass("d-none");
+								$("#grid").jqxGrid('hidecolumn', "Edit");
+							}
+							
 			  	    	}
 			  	    	
 			  	    },
@@ -171,11 +194,46 @@
         	}
             	
         }
+
+       	function fnSetBtn(str){
+       		if(str){
+       			$("#btnModify").show();
+       			$("#btnPraySave").hide();
+       			$("#btnPrayDelete").hide();
+       			
+       		} else {
+       			$("#btnModify").hide();
+       			$("#btnPraySave").show();
+       			$("#btnPrayDelete").show();
+       		}
+       	}
+        
+        function fnBtnModify(){
+        	fnSetBtn(false);
+        	fnSetReadonly(false);
+        }
 		
+        function fnSetReadonly(str){
+			$("#frm_user_nm").prop('readonly',str);
+			if(str){
+				$("#btnSearchUser").hide();
+			} else {
+				$("#btnSearchUser").show();
+			}
+			$("#frm_user_code").prop('readonly',str);
+			$("#frm_gubun").jqxComboBox({ disabled: str });
+			$("#frm_status").jqxComboBox({ disabled: str });
+			$("#frm_subject").prop('readonly',str);
+			$("#frm_sdate").jqxDateTimeInput({disabled: str });
+			$("#frm_edate").jqxDateTimeInput({disabled: str });
+			$("#frm_memo").prop('readonly',str);
+        }
+        
         
         function fnSearchUser(){
         	fnCommUserSearch("new","fnPlayerPop");
         }
+        
         function fnPlayerPop(data){
         	
         	$("#frm_user_code").val(data.USER_CODE);
@@ -321,7 +379,7 @@
 			  	    data: informData,		  	    
 			  	    dataType : 'json',
 			  	    success: function (data, status, xhr) {
-			  	    	alert("정상 처리 되었습니다.");
+			  	    	alert("과정이 등록되었습니다.");
 
 			  	    	fnSelectPrayDtData();
 		  	    		
@@ -367,9 +425,10 @@
 											중보 및 관리 내역
 	                                	</div>
 										<div class="float-end align-bottom">
-											<button class="btn btn-outline-dark btn-sm" id="btnPraySave" Onclick="fnPraySave()">저 장</button>
-											<button class="btn btn-outline-dark btn-sm" id="btnPrayDelete" Onclick="fnPrayDelete()">삭 제</button>
-											<button class="btn btn-outline-dark btn-sm" id="btnPrayClose" Onclick="fnPrayList()">목록가기</button>
+											<button class="btn btn-outline-dark btn-sm"  id="btnModify" Onclick="fnBtnModify()">수 정</button>
+											<button class="btn btn-outline-dark btn-sm"  id="btnPraySave" Onclick="fnPraySave()">저 장</button>
+											<button class="btn btn-outline-dark btn-sm"  id="btnPrayDelete" Onclick="fnPrayDelete()">삭 제</button>
+											<button class="btn btn-outline-dark btn-sm" id="btnPrayList" Onclick="fnPrayList()">목록가기</button>
 										</div>
 	                                </div>
                                 </div>
@@ -389,7 +448,7 @@
 								                        <input class="tbl-form-control w-80" id="frm_user_nm"  name="frm_user_nm" readOnly />
 				                                	</div>
 				                                	<div>
-				                                		<input type="button" class="btn btn-outline-dark btn-sm" id="btnPopClose" Onclick="fnSearchUser();" value="성도검색"/>
+				                                		<input type="button" class="btn btn-outline-dark btn-sm" id="btnSearchUser" Onclick="fnSearchUser();" value="성도검색"/>
 				                                	</div>
 						                        </td>
 						                    	<td align="right" class="col-xl-1">
@@ -447,24 +506,28 @@
 						</div>
 						<div class="row p-2 d-none" id="prayDtForm"  >
 							<div class="col-xl-12" >
-                                <div class="card">
+                                <div id="dt_input_frm" class="card">
 	                                <div class="card-header" >
-	                                	<div class="float-start">
+	                                	<div class="float-start col-xl-8" >
 											경과 및 결과
 	                                	</div>
-										<div class="float-end">
-											<button class="btn btn-outline-dark btn-sm" id="btnPrayDtSave" Onclick="fnPrayDtSave()">저 장</button>
-											<button class="btn btn-outline-dark btn-sm" id="btnPrayDelete" Onclick="fnPrayDtDelete()">삭 제</button>
+						                <form id="frmDtPray" name="frmPray">
+										<div class="float-end col-xl-4">
+											<span class="float-start">상태 : &nbsp;</span>
+											<span class="float-start tbl-form-control w-30" id="frm_dt_status" name="frm_dt_status"/></span>
+											<div class="float-end">
+												<a href="#" class="btn btn-outline-dark btn-sm" id="btnPrayDtSave" Onclick="fnPrayDtSave()">저 장</a>
+												<a href="#" class="btn btn-outline-dark btn-sm" id="btnPrayDtDelete" Onclick="fnPrayDtDelete()">삭 제</a>
+											</div>
 										</div>
 										<br><p style="heght:5px"></p>
 	                                	<div>
-							                <form id="frmDtPray" name="frmPray">
 						                	<input type=hidden name="frm_dt_dtno" id="frm_dt_dtno">
 						                	<input type=hidden name="frm_dt_prno" id="frm_dt_prno">
 						                	<input type=hidden name="frm_dt_mode" id="frm_dt_mode">
 											<textarea class="tbl-form-control"  id="frm_dt_memo"  name="frm_dt_memo" rows="3"></textarea>
-				                            </form>
 	                                	</div>
+			                            </form>
 	                                </div>
                                 </div>
                                 <div id="grid" class="my-1" ></div>

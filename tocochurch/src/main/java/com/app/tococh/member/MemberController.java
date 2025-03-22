@@ -45,16 +45,20 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("/selectManagerList.do")
-	public HashMap<String, Object> selectManagerList(@RequestParam Map<String, Object> paramMap) throws Exception {
+	public HashMap<String, Object> selectManagerList(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
+		String sessName = (String) request.getSession().getAttribute("sessUserName");
 		
 		HashMap<String, Object> map  = new HashMap<String, Object>();
 		String srch_email = (String) paramMap.get("srch_email");
 		String srch_userNm = (String) paramMap.get("srch_userNm");
 		
-		map.put("SRCH_EMAIL", srch_email);
-		map.put("SRCH_USERNM", srch_userNm);
+		map.put("SESS_EMAIL"	,sessEmail);
+		map.put("SRCH_EMAIL"	, srch_email);
+		map.put("SRCH_USERNM"	, srch_userNm);
 		
 		List<Map<Object, String>> memberList = memberService.selectManagerList(map);
 //		System.out.println(chDtList);

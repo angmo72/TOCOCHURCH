@@ -227,3 +227,9 @@ function fnCommUserSelect(){
 	$('#commUserSearchPopWindow').jqxWindow('close');
 	
 }
+
+
+//일자 계산
+function fnAddDay(date, n) {
+	return new Date(date.setDate(date.getDate() + n));
+}

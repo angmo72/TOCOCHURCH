@@ -195,11 +195,11 @@
 		<if test='srch_status != null and srch_status !=""'>
 			AND  A.STATUS = #{srch_status}
 		</if>
-		<if test='scrh_user_nm != null and scrh_user_nm !=""'>
-			AND  A.USER_NM LIKE CONCAT('%' , #{scrh_user_nm} , '%')
+		<if test='srch_user_nm != null and srch_user_nm !=""'>
+			AND  A.USER_NM LIKE CONCAT('%' , #{srch_user_nm} , '%')
 		</if>
-		<if test='scrh_subject != null and scrh_subject !=""'>
-			AND  A.USER_SUBJECT LIKE CONCAT('%' , #{scrh_subject} , '%')
+		<if test='srch_subject != null and srch_subject !=""'>
+			AND  A.SUBJECT LIKE CONCAT('%' , #{srch_subject} , '%')
 		</if>
 		<if test='srch_prno != null and srch_prno !=""'>
 			AND  A.PRNO = #{srch_prno}
@@ -307,5 +307,18 @@
 			USER_NM AS CODE_NM
 		FROM CH_USER
 	</select>
+	
+	<update id="updatePrayStatus">
+		UPDATE CH_PRAYER SET
+			STATUS = #{frm_dt_status}
+			<if test='frm_dt_status != null and frm_dt_status !=""'>
+				<if test='frm_dt_status =="S030" or frm_dt_status =="S040"'>
+				, EDATE = now()
+				</if>
+			</if>
+		WHERE 1=1
+		AND PRNO = #{frm_dt_prno}
+	</update>
+	
 	
 </mapper>

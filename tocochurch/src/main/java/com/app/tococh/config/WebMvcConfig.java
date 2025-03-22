@@ -17,6 +17,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //                .addPathPatterns("/**/*")
                 .excludePathPatterns(
                 		"/"
+                		,"/churchInfo.do"
+                		,"/youtube/*.*"
+                		,"/home/*.*"
                 		,"/img/*.*"
                 		,"/css/*.*"
                 		,"/js/*.*"

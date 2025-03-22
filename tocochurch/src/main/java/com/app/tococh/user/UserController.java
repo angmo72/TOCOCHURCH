@@ -345,6 +345,8 @@ public class UserController {
 			userService.deletePrayDtData(paramMap);
 
 		}
+		
+		userService.updatePrayStatus(paramMap);
 			
 		reMap.put("data", "");
 		

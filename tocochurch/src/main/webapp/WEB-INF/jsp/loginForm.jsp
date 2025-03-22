@@ -19,6 +19,13 @@
     	<script src="/js/chrch.js"></script>
     	<script>
     	$(document).ready(function () {
+    		
+    		$("#userPw").on("keyup",function(key){
+				if(key.keyCode==13) {
+					$("#btnLogin").click()
+				}     
+			});
+    		
 			$("#btnLogin").click(function(){
 
 				var userEmail=$("#userEmail").val();

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
     <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
     
@@ -91,6 +90,7 @@
                     { name: 'OUT_MONEY', type: 'string' },
                     { name: 'REST_MONEY', type: 'string' },
                     { name: 'MEMO', type: 'string' },
+                    { name: 'OFFERTORY_DATE', type: 'string' },
                     { name: 'CR_ID', type: 'string' },
                     { name: 'CR_DT', type: 'string' },
                     { name: 'UP_ID', type: 'string' },
@@ -150,10 +150,15 @@
         });
         
         
-		var fnViewButton = function(){
-            return '<button onClick="fnModifyFinance()" class="btn btn-outline-dark btn-sm" style="margin:5px; width:50px; height:25px">수정</button>';
-        };
         function setGrid(){
+			var fnViewButton = function(row, columnfield, value, defaulthtml, columnproperties) {
+				var offerDate = $('#grid1').jqxGrid('getcellvalue', row, "OFFERTORY_DATE");
+				if(offerDate == undefined || offerDate == ""){
+	            	return '<button onClick="fnModifyFinance()" class="btn btn-outline-dark btn-sm" style="margin:5px; width:50px; height:25px">수정</button>';
+				} else {
+					return "";
+				}
+	        };
             $("#grid1").jqxGrid(
             {
                 width: "100%",
@@ -212,6 +217,7 @@
                   },
                   { text: '비고', datafield: 'MEMO', columntype: 'textbox', cellsalign: 'center',align: 'center'},
                   { text: '수정', cellsalign: 'center',align: 'center', width: 60, cellsrenderer : fnViewButton, editable : false},
+                  { text: 'OFFERTORY_DATE', datafield: 'OFFERTORY_DATE', cellsalign: 'center',align: 'center', width: 60, hidden:true, editable : false},
                 ]
             });
             $('#grid1').on('rowclick', function (event) 
@@ -439,7 +445,7 @@
                                 </div>
                          	</div>
 							<div id="grid1" class="my-1" ></div>
- 								<div id="insertPopup">
+ 								<div id="insertPopup" style="display:none">
  								<div>재정등록/수정</div>
 								<div style="overflow: hidden;" class="card-header col-xl-12">
                                    	<div class="p-2">

@@ -1,9 +1,11 @@
 package com.app.tococh.interceptor;
 
-import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.app.common.service.CommonService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginInterceptor implements HandlerInterceptor {
 	
 	private static final String[] exceptURIs = {"/login", "/test3"};
+	
+//	private CommonService commonService;
+//	
+//	public LoginInterceptor(CommonService commonService) {
+//		this.commonService = commonService;
+//	}
+	
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -29,6 +38,26 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (sessUserEmail == null || sessUserEmail.equals("") ) {
             response.sendRedirect("/login.do");
             return false;
+        } else {
+        	//접속 정보를 저장 함
+        	//이전 페이지 
+//        	String before_address = request.getHeader("referer");
+//       	
+//        	//사용자 IP 
+//        	String user_ip   = request.getRemoteAddr();
+//        	
+//        	String fullUrl = request.getRequestURI();   //프로젝트경로부터 파일까지의 경로값을 얻어옴 (/test/index.jsp)
+//        	String pjtUrl = request.getContextPath();  //프로젝트의 경로값만 가져옴(/test)
+//        	String httpFullUrl = request.getRequestURL().toString();   //전체 경로를 가져옴 (http://localhost:8080/test/index.jsp)
+//        	String serviceUrl = request.getServletPath();  //파일명 (/index.jsp)
+//
+//    		HashMap<String, Object> map  = new HashMap<String, Object>();
+//	        map.put("USER_ID"		,sessUserEmail);
+//	        map.put("PATH"			,fullUrl);
+//	        map.put("IP"			,user_ip);
+//	        
+//	        commonService.insertUserAction(map);
+        	
         }
 
         return HandlerInterceptor.super.preHandle(request, response, handler);

@@ -108,5 +108,10 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return userMapper.getUserCodeData();
 	}
+
+	public void updatePrayStatus(Map<String, Object> paramMap)throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.updatePrayStatus(paramMap);
+	}
 	
 }

@@ -12,7 +12,7 @@
 			CH_USER_CODE,
 			CH_USER_NM,
 			USER_NAME,
-			MONEY,
+			CAST(MONEY AS UNSIGNED) AS MONEY,
 			RMK,
 			APPR_YN,
 			CR_ID,
@@ -60,7 +60,6 @@
 	        USER_NAME = #{offer_name2},
 	        MONEY = #{offer_amount},
 	        RMK = #{offer_note},
-	        APPR_YN = 'N',
 	        CR_ID = #{SESS_EMAIL},
 	        CR_DT = NOW()
 	    WHERE
@@ -71,4 +70,178 @@
 	    DELETE FROM CH_OFFERTORY
 	    WHERE CHNO = #{ch_no}
 	</delete>
+	
+	<insert id="saveOffferInfoHis">
+		INSERT INTO CH_OFFERTORY_HIS
+		(CHNO, IN_DATE, GUBUN, CH_USER_CODE, CH_USER_NM, USER_NAME, MONEY, RMK, APPR_YN, CR_ID, CR_DT, UP_ID, UP_DT, REASON, HIS_ID, HIS_DT)
+		SELECT 
+		 CHNO, IN_DATE, GUBUN, CH_USER_CODE, CH_USER_NM, USER_NAME, MONEY, RMK, APPR_YN, CR_ID, CR_DT, UP_ID, UP_DT ,'승인', #{SESS_EMAIL},NOW()
+		FROM CH_OFFERTORY
+		WHERE APPR_YN ='N'
+		AND IN_DATE = #{offer_date}
+	</insert>
+	
+	<update id="approvalOfferInfo">
+		UPDATE CH_OFFERTORY
+	    SET
+	        APPR_YN ='Y',
+	        UP_ID = #{SESS_EMAIL},
+	        UP_DT = NOW()
+	    WHERE APPR_YN ='N'
+	    	AND IN_DATE = #{offer_date}
+	</update>
+	
+	<insert id="insertFinance">
+	
+	    INSERT INTO CH_FINANCE
+		(
+			GUBUN,
+			CATEGORY,
+			SUB_MEMO,
+			FNDATE,
+			MONEY,
+			MEMO,
+			OFFERTORY_DATE,
+			CR_ID,
+			CR_DT
+		)
+		SELECT 
+			'FN010'  AS GUBUN, 
+			GUBUN  AS CATEGORY, 
+			''  AS SUB_MEMO, 
+			IN_DATE   AS FNDATE, 
+			CAST(SUM(MONEY) AS CHAR)  AS MONEY,
+			'주일헌금합계' AS MEMO,
+			IN_DATE   AS OFFERTORY_DATE,
+			 #{SESS_EMAIL},
+			 NOW()
+		FROM CH_OFFERTORY 
+		WHERE APPR_YN ='Y' 
+		AND IN_DATE = #{offer_date}
+		GROUP BY IN_DATE , GUBUN 
+	</insert>
+	
+	<select id="offerList" resultType="Map">
+		SELECT
+			CHNO,
+			IN_DATE,
+			GET_CODE_NAME('CH005',GUBUN) AS GUBUN_NM,
+			GUBUN,
+			CH_USER_CODE,
+			CH_USER_NM,
+			USER_NAME,
+			CAST(MONEY AS UNSIGNED) AS MONEY,
+			RMK,
+			APPR_YN,
+			CR_ID,
+			CR_DT,
+			UP_ID,
+			UP_DT
+		FROM
+			CH_OFFERTORY
+		WHERE
+			APPR_YN = 'Y'
+		<if test='srch_offerDateFrom != null and srch_offerDateFrom !=""'>
+			AND IN_DATE >=  #{srch_offerDateFrom}
+		</if>
+		<if test='srch_offerDateTo != null and srch_offerDateTo !=""'>
+			AND IN_DATE <![CDATA[ <= ]]> #{srch_offerDateTo}
+		</if>
+		<if test='srch_offerType != null and srch_offerType !=""'>
+			AND GUBUN =  #{srch_offerType}
+		</if>
+		<if test='srch_userNm != null and srch_userNm !=""'>
+			AND  (
+				CH_USER_NM LIKE CONCAT('%' , #{srch_userNm} , '%')
+				OR USER_NAME LIKE CONCAT('%' , #{srch_userNm} , '%')
+			)
+		</if>
+		ORDER BY IN_DATE ASC, GUBUN ASC, CH_USER_NM ASC
+	</select>
+
+	<insert id="insertOfferInfoHis">
+		INSERT INTO CH_OFFERTORY_HIS (
+			CHNO, 
+			IN_DATE, 
+			GUBUN, 
+			CH_USER_CODE, 
+			CH_USER_NM, 
+			USER_NAME, 
+			MONEY, 
+			RMK, 
+			APPR_YN, 
+			CR_ID, 
+			CR_DT, 
+			UP_ID, 
+			UP_DT, 
+			REASON, 
+			HIS_ID, 
+			HIS_DT
+		) 
+		SELECT 
+			CHNO, 
+			#{frm_indate}, 
+			#{frm_gubun}, 
+			#{frm_chUserId}, 
+			#{frm_chUserNm}, 
+			#{frm_userNm}, 
+			#{frm_money}, 
+			#{frm_rmk}, 
+			APPR_YN, 
+			CR_ID, 
+			CR_DT, 
+			UP_ID, 
+			UP_DT, 
+			#{frm_reason}, 
+			#{SESS_EMAIL},
+			NOW()
+		FROM CH_OFFERTORY
+		WHERE CHNO = #{frm_chno}
+	</insert>
+	
+	<update id="updateOffFinanceMinus">
+		UPDATE CH_FINANCE SET
+			MONEY = MONEY -  #{frm_oldMoney}
+		WHERE 1=1
+		AND (GUBUN, CATEGORY, OFFERTORY_DATE) IN (
+			SELECT
+			'FN010' AS GUBUN, GUBUN AS CATEGORY, IN_DATE 
+			FROM CH_OFFERTORY
+			WHERE CHNO = #{frm_chno}
+		)
+	</update>
+	
+	<update id="updateOffFinancePluse">
+		UPDATE CH_FINANCE SET
+			MONEY = MONEY +  #{frm_money}
+		WHERE 1=1
+		AND GUBUN = 'FN010'
+		AND CATEGORY = #{frm_gubun}
+		AND OFFERTORY_DATE = #{frm_indate}
+	</update>
+	
+	<update id="updateMngOfferInfo">
+		UPDATE CH_OFFERTORY
+	    SET
+	        IN_DATE = #{frm_indate},
+	        GUBUN = #{frm_gubun},
+	        CH_USER_CODE = #{frm_chUserId},
+	        CH_USER_NM = #{frm_chUserNm},
+	        USER_NAME = #{frm_userNm},
+	        MONEY = #{frm_money},
+	        RMK = #{frm_rmk},
+	        CR_ID = #{SESS_EMAIL},
+	        CR_DT = NOW()
+	    WHERE
+	        CHNO = #{frm_chno}
+	</update>
+	
+	<delete id="deleteMngOfferInfo">
+	    DELETE FROM CH_OFFERTORY
+	    WHERE 1=1
+	    AND APPR_YN ='Y'
+	    AND CHNO = #{frm_chno}
+	</delete>
+	
+	
 </mapper>

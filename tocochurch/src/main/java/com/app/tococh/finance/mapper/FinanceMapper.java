@@ -17,5 +17,7 @@ public interface FinanceMapper {
 	void updateFinaceData(HashMap<String, Object> map) throws Exception;
 
 	void deleteFinanceData(HashMap<String, Object> map) throws Exception;
+
+	List<Map<Object, String>> searchMngFinanceList(Map<String, Object> paramMap) throws Exception;
 	
 }

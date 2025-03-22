@@ -1,21 +1,22 @@
 package com.app.tococh;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.common.SHA256;
 import com.app.tococh.member.service.MemberService;
+import com.app.tococh.sys.service.SysService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,15 +25,14 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 
+	@Autowired
 	private MemberService memberService;
 	
-	public MainController(MemberService memberService) {
-		this.memberService = memberService;
-	}
-
+	@Autowired
+	private SysService sysService;
 	
 	@GetMapping("/")
-	public String homeRoot(HttpServletRequest request, Model model) {
+	public String homeRoot(HttpServletRequest request, Model model) throws Exception {
 
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
 		String sessName = (String) request.getSession().getAttribute("sessUserName");
@@ -40,6 +40,10 @@ public class MainController {
 		model.addAttribute("sessEmail", sessEmail);
 		model.addAttribute("sessName", sessName);
 		
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		List<Map<Object, String>> chInfo = chInfo = sysService.selectChurchInfo(paramMap);
+			
+		request.setAttribute("YOUTUBE_LIVE", chInfo.get(0).get("YOUTUBE_LIVE"));
 		return "index";
 	}
 	

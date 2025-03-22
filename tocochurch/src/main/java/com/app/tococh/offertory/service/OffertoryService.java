@@ -38,5 +38,58 @@ public class OffertoryService {
 		// TODO Auto-generated method stub
 		offertoryMapper.deleteOfferInfo(paramMap);
 	}
+	
+	public void saveOffferInfoHis(Map<String, Object> paramMap) throws Exception{
+		// TODO Auto-generated method stub
+		offertoryMapper.saveOffferInfoHis(paramMap);
+	}
+
+	public void approvalOfferInfo(Map<String, Object> paramMap)  throws Exception{
+		// TODO Auto-generated method stub
+		offertoryMapper.approvalOfferInfo(paramMap);
+	}
+
+	public void insertFinance(Map<String, Object> paramMap)  throws Exception{
+		// TODO Auto-generated method stub
+		offertoryMapper.insertFinance(paramMap);
+	}
+
+	public List<Map<Object, String>> offerList(Map<String, Object> paramMap) throws Exception{
+		// TODO Auto-generated method stub
+		return offertoryMapper.offerList(paramMap);
+	}
+
+	public void updateMngOfferInfo(Map<String, Object> paramMap) throws Exception{
+		// TODO Auto-generated method stub
+		
+		// 기존헌금 내역 백업 
+		offertoryMapper.insertOfferInfoHis(paramMap);
+		
+		// 기존금은 차감 및 현재금액 추가
+		//차감
+		offertoryMapper.updateOffFinanceMinus(paramMap);
+		
+		//증감
+		offertoryMapper.updateOffFinancePluse(paramMap);
+	
+		// 신규 헌금내역 업데이트
+		offertoryMapper.updateMngOfferInfo(paramMap);
+		
+	}
+
+	public void deletMngOfferInfo(Map<String, Object> paramMap) throws Exception{
+		// TODO Auto-generated method stub
+		
+		// 기존헌금 내역 백업 
+		offertoryMapper.insertOfferInfoHis(paramMap);
+		
+		//차감
+		offertoryMapper.updateOffFinanceMinus(paramMap);
+		
+		//헌금내역 삭제
+		offertoryMapper.deleteMngOfferInfo(paramMap);
+	}
+
+
 
 }

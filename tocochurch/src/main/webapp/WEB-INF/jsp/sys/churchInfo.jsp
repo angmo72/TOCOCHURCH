@@ -54,6 +54,7 @@
 				  	  	$("#frm_CH_PHONE1").val(data.CH_PHONE1);
 				  	  	$("#frm_CH_PASTOR2").val(data.CH_PASTOR2);
 				  	  	$("#frm_CH_PHONE2").val(data.CH_PHONE2);
+				  	  	$("#frm_YOUTUBE_LIVE").val(data.YOUTUBE_LIVE);
 		  	    	}
 		  	    	
 		  	    },
@@ -155,6 +156,10 @@
 					                        <td align="left" class="col-xl-3"><input class="tbl-form-control w-30" id="frm_CH_PASTOR2" name="frm_CH_PASTOR2" /></td>
 					                    	<td align="right" class="col-xl-1"> 연락처: </td>
 					                        <td align="left" class="col-xl-3"><input class="tbl-form-control w-70" id="frm_CH_PHONE2"  name="frm_CH_PHONE2" /></td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right" class="col-xl-1"> 유튜브라이브: </td>
+					                        <td align="left" class="col-xl-3" colspan=3><input class="tbl-form-control w-70" id="frm_YOUTUBE_LIVE" name="frm_YOUTUBE_LIVE" /></td>
 					                    </tr>
 									</table>
 										

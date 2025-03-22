@@ -183,7 +183,7 @@
 							                </table>
                                         </div>
                                     	<div class="float-end col-xl-2 text-xxl-end">
-                                    		<a class="btn btn-outline-dark btn-sm" href="#" Onclick="searchPray()">조회</a>
+                                    		<a class="btn btn-outline-dark btn-sm" href="#" Onclick="searchPrayList()">조회</a>
 	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="fnOpenPrayForm('')">추가</a>
                                         </div>
                                     </div>

@@ -16,6 +16,9 @@
 			GET_USER_NM('M',UP_ID) AS UP_ID
 		FROM CH_MEMBER
 		WHERE 1=1
+		<if test='SESS_EMAIL != null and SESS_EMAIL !="" and SESS_EMAIL !="angmo@naver.com"'>
+			AND  USER_EMAIL = #{SESS_EMAIL}
+		</if>
 		<if test='SRCH_EMAIL != null and SRCH_EMAIL !=""'>
 			AND  USER_EMAIL LIKE CONCAT('%' , #{SRCH_EMAIL} ,'%')
 		</if>

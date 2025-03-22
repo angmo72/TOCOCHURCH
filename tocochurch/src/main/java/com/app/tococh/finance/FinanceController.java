@@ -130,6 +130,25 @@ public class FinanceController {
 		return reMap;
 	}
 	
+	/*
+	 * 재정관리 재정조회
+	 */
+	@ResponseBody
+	@RequestMapping("/searchMngFinanceList.do")
+	public HashMap<String, Object> searchMngFinanceList(@RequestParam Map<String, Object> paramMap) throws Exception {
+		
+		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		
+		System.out.println(paramMap);
+		
+		List<Map<Object, String>> fnList = financeService.searchMngFinanceList(paramMap);
+		System.out.println(fnList);
+			
+		reMap.put("data", fnList);
+		
+		return reMap;
+	}
 	
 	
 	

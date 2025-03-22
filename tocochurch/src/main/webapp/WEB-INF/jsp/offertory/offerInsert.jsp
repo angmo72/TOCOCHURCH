@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
     <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
     
@@ -40,26 +39,25 @@
     	
 		fnGetCodeList("offer_type", "CH005");
 	
-		//생년월일
+		//헌금일
 		fnSetCalendar("offer_date", "yyyy-MM-dd");
-		$('#frm_birthday').val("");
 		
 		fnGetCodeListUrl("/user/getUserCodeData.do","offer_id");
 	      	
 		$('#offer_id').on('change', function (event) 
 			{
 			    var args = event.args;
-			    if (args) {
-			    // index represents the item's index.                          
-			    var index = args.index;
-			    var item = args.item;
-			    // get item's label and value.
-			    var label = item.label;
-			    var value = item.value;
-			    var type = args.type; // keyboard, mouse or null depending on how the item was selected.
-			    
-			    $("#offer_name").val(label);
-			}
+			    if (args != undefined && args.index > -1) {
+				    // index represents the item's index.                          
+				    var index = args.index;
+				    var item = args.item;
+				    // get item's label and value.
+				    var label = item.label;
+				    var value = item.value;
+				    var type = args.type; // keyboard, mouse or null depending on how the item was selected.
+				    
+				    $("#offer_name").val(label);
+				}
 			}); 
 	
           datafields1 = [
@@ -117,7 +115,7 @@
                   { text: '헌금종류', datafield: 'GUBUN_NM', columntype: 'combobox', cellsalign: 'center',align: 'center', width: 120 },
                   { text: '이름', datafield: 'CH_USER_NM', columntype: 'combobox', cellsalign: 'center',align: 'center', width: 120 },
                   { text: '기타이름', datafield: 'USER_NAME', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 200 },
-                  { text: '금액', datafield: 'MONEY', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 100, cellsformat: 'd'
+                  { text: '금액', datafield: 'MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: '150', cellsformat: 'd'
                 	  ,aggregates: [{
                           '계': function (aggregatedValue, currentValue) {
                               if (currentValue) {
@@ -200,11 +198,9 @@
 			else
 				$("#mode").val("INSERT");
 			
-			
 			var frm = $("#formOffer");
   	    	var informData = frm.serialize();
   	    	
-        	
         	$.ajax({
 		  	    url: '/offertory/saveOfferInfo.do',
 		  	    method: 'post',
@@ -289,6 +285,33 @@
         	
         	$("#deleteBtn").show();
 		}
+		
+		function apprval(){
+		    if (!confirm("승인하시면 수정이 불가합니다. \n승인 하시겠습니까?")) return;
+
+		    $("#mode").val("APPRAVOAL");
+		    
+		    var frm = $("#formOffer");
+  	    	var informData = frm.serialize();
+
+		    $.ajax({
+		        url: '/offertory/saveOfferInfo.do',
+		        method: 'post',
+		        data: informData,
+		        dataType: 'json',
+		        success: function () {
+		            alert("승인되었습니다.");
+		            $("#offer_id").jqxComboBox('unselectItem',  $("#offer_id").val() ); 
+			  	    $("#formOffer")[0].reset();
+		            $("#deleteBtn").hide();
+		            $("#mode").val("INSERT");    
+		            $("#ch_no").val(""); 
+		            searchOffer();
+		        },
+		        error: function () {
+		            alert("승인중 오류가 발생했습니다.");
+		        }
+		    });		}
         
         
     </script>
@@ -358,7 +381,7 @@
                                         <div class="float-end fcol-xl-3 align-bottom">
 	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="addOfferDt()">저 장</a>
 	                                         <a class="btn btn-outline-dark btn-sm" href="#" id="deleteBtn" onclick="deleteOffer()" style="display: none;">삭 제</a>
-	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="searchUser()">승 인</a>
+	                                        <a class="btn btn-outline-dark btn-sm" href="#" Onclick="apprval()">승 인</a>
                                         </div>
                                    </div>
                            		</div>
