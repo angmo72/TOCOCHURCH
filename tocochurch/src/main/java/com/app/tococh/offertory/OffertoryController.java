@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.app.tococh.offertory.service.OffertoryService;
-import com.app.tococh.user.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/offertory")
@@ -42,6 +43,20 @@ public class OffertoryController {
 		
 		return "offertory/offerManager";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/offerPrint.do")
+	public ModelAndView offerPrint(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, HttpSession session, ModelAndView mv) throws Exception {
+		
+		System.out.println(paramMap);
+		
+		request.setAttribute("srch_indate", (String) paramMap.get("srch_indate"));
+		request.setAttribute("srch_gubun", (String) paramMap.get("srch_gubun"));
+		
+		mv.setViewName("offertory/offerPrint");
+		return mv;
+	}	
+	
 	
 	@ResponseBody
 	@RequestMapping("/offerUserList.do")
@@ -96,14 +111,31 @@ public class OffertoryController {
 		} else if(mode.equals("APPRAVOAL")) {
 			// 이력저장 
 			offertoryService.saveOffferInfoHis(paramMap);
+			//제정으로 저장
+			offertoryService.insertFinance(paramMap);
 			//업데이트
 			offertoryService.approvalOfferInfo(paramMap);
-			
-			offertoryService.insertFinance(paramMap);
 
 		}
 			
 		reMap.put("data", "");
+		
+		return reMap;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/offerListSum.do")
+	public HashMap<String, Object> offerListSum(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
+		
+		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		List<Map<Object, String>> userList = offertoryService.offerListSum(paramMap);
+		
+		List<Map<Object, String>> dateList = offertoryService.offerDataList(paramMap);
+		
+		reMap.put("dateList", dateList);
+		reMap.put("data", userList);
 		
 		return reMap;
 	}
@@ -114,9 +146,9 @@ public class OffertoryController {
 		
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
 		
-		List<Map<Object, String>> userList = offertoryService.offerList(paramMap);
+		List<Map<Object, String>> offerList = offertoryService.offerList(paramMap);
 			
-		reMap.put("data", userList);
+		reMap.put("data", offerList);
 		
 		return reMap;
 	}
@@ -159,6 +191,22 @@ public class OffertoryController {
 		offertoryService.deletMngOfferInfo(paramMap);
 		
 		reMap.put("data", "");
+		
+		return reMap;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/offerPrintList.do")
+	public HashMap<String, Object> offerPrintList(@RequestParam Map<String, Object> paramMap) throws Exception {
+		
+		HashMap<String, Object> reMap = new HashMap<String, Object>();
+		
+		List<Map<Object, String>> offerSumList = offertoryService.offerListSum(paramMap);
+		List<Map<Object, String>> offerList = offertoryService.offerList(paramMap);
+			
+		reMap.put("dataSum", offerSumList);
+		reMap.put("dataList", offerList);
 		
 		return reMap;
 	}

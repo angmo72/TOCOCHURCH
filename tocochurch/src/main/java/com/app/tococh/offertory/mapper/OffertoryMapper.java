@@ -21,6 +21,8 @@ public interface OffertoryMapper {
 	
 	void approvalOfferInfo(Map<String, Object> paramMap) throws Exception;
 
+	void deleteFinance(Map<String, Object> paramMap) throws Exception;
+	
 	void insertFinance(Map<String, Object> paramMap) throws Exception;
 
 	List<Map<Object, String>> offerList(Map<String, Object> paramMap) throws Exception;
@@ -34,6 +36,10 @@ public interface OffertoryMapper {
 	void updateMngOfferInfo(Map<String, Object> paramMap) throws Exception;
 
 	void deleteMngOfferInfo(Map<String, Object> paramMap) throws Exception;
+
+	List<Map<Object, String>> offerListSum(Map<String, Object> paramMap) throws Exception;
+
+	List<Map<Object, String>> offerDataList(Map<String, Object> paramMap) throws Exception;
 
 
 }

@@ -233,3 +233,9 @@ function fnCommUserSelect(){
 function fnAddDay(date, n) {
 	return new Date(date.setDate(date.getDate() + n));
 }
+
+//천단위 콤마 펑션
+function fnAddComma(value){
+     value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+     return value; 
+ }

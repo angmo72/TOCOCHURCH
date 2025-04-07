@@ -40,7 +40,7 @@
 			AND  A.SUB_MEMO =  #{srch_sub_memo}
 		</if>
 		AND A.DEL_YN='N'
-		ORDER BY A.FNDATE ASC, A.FNNO ASC
+		ORDER BY A.FNDATE DESC, A.FNNO DESC
 	</select>
 
 	<insert id="insertFinanceData">

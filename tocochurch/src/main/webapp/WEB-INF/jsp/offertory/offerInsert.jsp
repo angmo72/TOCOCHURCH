@@ -36,6 +36,11 @@
 	var dsDutyCode = "";
     $(document).ready(function () {
       	
+		$("#offer_amount").on("keyup",function(key){
+			if(key.keyCode==13) {
+				addOfferDt();
+			}     
+		});
     	
 		fnGetCodeList("offer_type", "CH005");
 	
@@ -102,8 +107,8 @@
                 editable: false,
 // 				filterable: true,
 //                 enabletooltips: true,
-				showaggregates: true,
-				showstatusbar: true,
+// 				showaggregates: true,
+// 				showstatusbar: true,
                 enablebrowserselection : true,
 //                 selectionmode: 'checkbox',
                 selectionmode: 'singlerow',
@@ -115,16 +120,7 @@
                   { text: '헌금종류', datafield: 'GUBUN_NM', columntype: 'combobox', cellsalign: 'center',align: 'center', width: 120 },
                   { text: '이름', datafield: 'CH_USER_NM', columntype: 'combobox', cellsalign: 'center',align: 'center', width: 120 },
                   { text: '기타이름', datafield: 'USER_NAME', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 200 },
-                  { text: '금액', datafield: 'MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: '150', cellsformat: 'd'
-                	  ,aggregates: [{
-                          '계': function (aggregatedValue, currentValue) {
-                              if (currentValue) {
-                                  return aggregatedValue + currentValue;
-                              }
-                              return aggregatedValue;
-                          }
-                      }]
-                  },
+                  { text: '금액', datafield: 'MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: '150', cellsformat: 'd'},
                   { text: '비고', datafield: 'RMK', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 300 },
                   { text: '수정', cellsalign: 'center',align: 'center', width: 60, cellsrenderer : fnViewButton, editable : false},
                 ]
@@ -146,6 +142,9 @@
         
 		function searchOffer(){
 
+			//합계
+			searchOfferSum();
+			
 			var url = "/offertory/offerUserList.do";
 			// prepare the data
 			var source =
@@ -172,6 +171,48 @@
 			
 			
         }
+		
+        function searchOfferSum(){
+  	    	
+        	$.ajax({
+		  	    url: '/offertory/offerListSum.do',
+		  	    method: 'post',
+				data : {
+					srch_offerDateFrom : $("#srch_offerDateFrom").val(),
+					srch_offerDateTo : $("#srch_offerDateTo").val(),
+					srch_offerType : $("#srch_offerType").val(),
+					srch_userNm : $("#srch_userNm").val(),
+					srch_appr_yn : 'N',
+					},    
+		  	    dataType : 'json',
+		  	  	
+		  	    success: function (data, status, xhr) {
+// 		  	    	$("#summaryList").html()
+					var totalSum = 0;
+					var viewSum ="";
+					var sumdata = data.data;
+					if(sumdata.length > 0 ){
+						for(var i = 0 ; i < sumdata.length ; i++){
+							totalSum = totalSum + sumdata[i].SUM_MONEY;
+							viewSum = viewSum  + sumdata[i].GUBUN_NM + "  :  " + fnAddComma(sumdata[i].SUM_MONEY) + "  &nbsp; |  &nbsp;  ";
+						}
+						viewSum = viewSum + " 전체금액   :   " +  fnAddComma(totalSum)	;
+						
+					} 
+
+					$("#summaryList").html(viewSum)
+					
+		  		},
+		  	    error: function (data, status, err) {
+		  	    	alert("서머리 조회 오류!");
+		  	    },
+		  	    complete: function () {
+	  	    	}
+	  		});
+        	
+        }
+
+        
 		
 		function addOfferDt(){
 			
@@ -208,15 +249,19 @@
 		  	    dataType : 'json',
 		  	  success: function (data, status, xhr) {
 		  	    alert("정상 처리 되었습니다.");
-		  	    $("#offer_id").jqxComboBox('unselectItem',  $("#offer_id").val() ); 
-		  	    $("#formOffer")[0].reset();
+		  	    $("#offer_id").jqxComboBox('unselectItem',  $("#offer_id").val() );
+		  	  	$("#offer_name").val("");
+		  	 	$("#offer_name2").val("");
+		  		$("#offer_amount").val("");
+// 		  		$("#offer_note").val("");
 		  	    $("#deleteBtn").hide();
-		  	  	$("#mode").val("INSERT");    
+		  	  	$("#mode").val("INSERT");  
 	            $("#ch_no").val(""); 
+	            
+	            $("#offer_id").focus();
+	            
 		  	    searchOffer();
 		  	},
-
-
 		  	    error: function (data, status, err) {
 		  	    	alert("저장시 오류가 발생되었습니다!");
 		  	    },
@@ -250,10 +295,13 @@
 		        dataType: 'json',
 		        success: function () {
 		            alert("삭제되었습니다.");
-		            $("#offer_id").jqxComboBox('unselectItem',  $("#offer_id").val() ); 
+		            var inDate =$("#offer_date").val();
+		            $("#offer_id").jqxComboBox('unselectItem',  $("#offer_id").val() );
+		            $("#offer_name").val("");
 			  	    $("#formOffer")[0].reset();
 		            $("#deleteBtn").hide();
-		            $("#mode").val("INSERT");    
+		            $("#mode").val("INSERT");
+		            $("#offer_date").val(inDate);
 		            $("#ch_no").val(""); 
 		            searchOffer();
 		        },
@@ -301,17 +349,20 @@
 		        dataType: 'json',
 		        success: function () {
 		            alert("승인되었습니다.");
-		            $("#offer_id").jqxComboBox('unselectItem',  $("#offer_id").val() ); 
+		            $("#offer_id").jqxComboBox('unselectItem',  $("#offer_id").val() );
+		            $("#offer_name").val("");
 			  	    $("#formOffer")[0].reset();
 		            $("#deleteBtn").hide();
 		            $("#mode").val("INSERT");    
 		            $("#ch_no").val(""); 
+		            
 		            searchOffer();
 		        },
 		        error: function () {
 		            alert("승인중 오류가 발생했습니다.");
 		        }
-		    });		}
+		    });		
+		}
         
         
     </script>
@@ -347,11 +398,11 @@
 								                        <td align="left" class="col-xl-3">
 								                        	<div class="tbl-form-control w-50 text-end"  id="offer_type" name="offer_type"></div>
 								                        </td>
-								                    	<td align="right" class="col-xl-1">
-								                        	금액:
+														<td align="right" class="col-xl-1">
+								                        	비고:
 								                        </td>
 								                        <td align="left" class="col-xl-3">
-								                        	<input class="tbl-form-control w-50"  id="offer_amount" name="offer_amount" />
+								                        	<input class="tbl-form-control w-100"  id="offer_note" name="offer_note"/>
 								                        </td>
 								                    </tr>
 								                    <tr>
@@ -368,11 +419,11 @@
 								                        <td align="left" class="col-xl-3">
 								                        	<input class="tbl-form-control w-100"  id="offer_name2" name="offer_name2"/>
 								                        </td>
-														<td align="right" class="col-xl-1">
-								                        	비고:
+								                    	<td align="right" class="col-xl-1">
+								                        	금액:
 								                        </td>
 								                        <td align="left" class="col-xl-3">
-								                        	<input class="tbl-form-control w-100"  id="offer_note" name="offer_note"/>
+								                        	<input class="tbl-form-control w-50"  id="offer_amount" name="offer_amount" />
 								                        </td>
 								                    </tr>
 								                </table>
@@ -385,6 +436,12 @@
                                         </div>
                                    </div>
                            		</div>
+                            <div class="col-xl-12 mt-1">
+                                <div class="card mb-3">
+                                    <div class="card-body" id="summaryList">
+									</div>
+                                </div>
+                            </div>
 							<div id="offer_grid" class="my-1" ></div>
                         </div>
 	                        

@@ -23,6 +23,7 @@
 			CH_OFFERTORY
 		WHERE
 			APPR_YN = 'N'
+		ORDER BY IN_DATE ASC, GUBUN DESC, CHNO DESC
 	</select>
 	
 	<insert id="insertOfferInfo">
@@ -90,9 +91,12 @@
 	    WHERE APPR_YN ='N'
 	    	AND IN_DATE = #{offer_date}
 	</update>
-	
+
+	<delete id="deleteFinance">
+		DELETE FROM CH_FINANCE WHERE GUBUN = 'FN010' AND OFFERTORY_DATE = #{offer_date} AND MEMO ='주일헌금합계';
+	</delete>
+
 	<insert id="insertFinance">
-	
 	    INSERT INTO CH_FINANCE
 		(
 			GUBUN,
@@ -116,10 +120,71 @@
 			 #{SESS_EMAIL},
 			 NOW()
 		FROM CH_OFFERTORY 
-		WHERE APPR_YN ='Y' 
+		WHERE 1=1
 		AND IN_DATE = #{offer_date}
 		GROUP BY IN_DATE , GUBUN 
 	</insert>
+	
+	
+	<select id="offerListSum" resultType="Map">
+		SELECT
+			GUBUN
+			,GET_CODE_NAME('CH005',GUBUN) AS GUBUN_NM
+			,COUNT(CH_USER_CODE) AS USER_CNT
+			,SUM(MONEY) AS SUM_MONEY
+		FROM CH_OFFERTORY
+		WHERE 1=1
+		<if test='srch_appr_yn != null and srch_appr_yn !=""'>
+			AND APPR_YN = #{srch_appr_yn}
+		</if>
+		<if test='srch_offerDateFrom != null and srch_offerDateFrom !=""'>
+			AND IN_DATE >=  #{srch_offerDateFrom}
+		</if>
+		<if test='srch_offerDateTo != null and srch_offerDateTo !=""'>
+			AND IN_DATE <![CDATA[ <= ]]> #{srch_offerDateTo}
+		</if>
+		<if test='srch_printDate != null and srch_printDate !=""'>
+			AND IN_DATE = #{srch_printDate}
+		</if>
+		<if test='srch_offerType != null and srch_offerType !=""'>
+			AND GUBUN =  #{srch_offerType}
+		</if>
+		<if test='srch_userNm != null and srch_userNm !=""'>
+			AND  (
+				CH_USER_NM LIKE CONCAT('%' , #{srch_userNm} , '%')
+				OR USER_NAME LIKE CONCAT('%' , #{srch_userNm} , '%')
+			)
+		</if>
+		GROUP BY GUBUN 
+	</select>
+	
+	<select id="offerDataList" resultType="Map">
+		SELECT
+			IN_DATE AS CODE,
+			IN_DATE AS CODE_NM
+		FROM CH_OFFERTORY
+		WHERE 1=1
+		<if test='srch_appr_yn != null and srch_appr_yn !=""'>
+			AND APPR_YN = #{srch_appr_yn}
+		</if>
+		<if test='srch_offerDateFrom != null and srch_offerDateFrom !=""'>
+			AND IN_DATE >=  #{srch_offerDateFrom}
+		</if>
+		<if test='srch_offerDateTo != null and srch_offerDateTo !=""'>
+			AND IN_DATE <![CDATA[ <= ]]> #{srch_offerDateTo}
+		</if>
+		<if test='srch_offerType != null and srch_offerType !=""'>
+			AND GUBUN =  #{srch_offerType}
+		</if>
+		<if test='srch_userNm != null and srch_userNm !=""'>
+			AND  (
+				CH_USER_NM LIKE CONCAT('%' , #{srch_userNm} , '%')
+				OR USER_NAME LIKE CONCAT('%' , #{srch_userNm} , '%')
+			)
+		</if>
+		GROUP BY IN_DATE 
+	</select>
+	
 	
 	<select id="offerList" resultType="Map">
 		SELECT
@@ -155,6 +220,9 @@
 				CH_USER_NM LIKE CONCAT('%' , #{srch_userNm} , '%')
 				OR USER_NAME LIKE CONCAT('%' , #{srch_userNm} , '%')
 			)
+		</if>
+		<if test='srch_printDate != null and srch_printDate !=""'>
+			AND IN_DATE = #{srch_printDate}
 		</if>
 		ORDER BY IN_DATE ASC, GUBUN ASC, CH_USER_NM ASC
 	</select>

@@ -160,7 +160,7 @@ public class CodeController {
 	        	map.put("RMK","");
 	        
 	        if(obj.getString("REF") != null )
-	        	map.put("RMK",obj.getString("RMK"));
+	        	map.put("REF",obj.getString("REF"));
 	        else 
 	        	map.put("REF","");
 	        

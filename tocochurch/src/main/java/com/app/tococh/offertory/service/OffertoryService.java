@@ -51,6 +51,10 @@ public class OffertoryService {
 
 	public void insertFinance(Map<String, Object> paramMap)  throws Exception{
 		// TODO Auto-generated method stub
+		//동일일자 데이터 삭제
+		offertoryMapper.deleteFinance(paramMap);
+		
+		//해당일의 모든 현금을 재정으로 등록
 		offertoryMapper.insertFinance(paramMap);
 	}
 
@@ -88,6 +92,16 @@ public class OffertoryService {
 		
 		//헌금내역 삭제
 		offertoryMapper.deleteMngOfferInfo(paramMap);
+	}
+
+	public List<Map<Object, String>> offerListSum(Map<String, Object> paramMap)  throws Exception{
+		// TODO Auto-generated method stub
+		return offertoryMapper.offerListSum(paramMap);
+	}
+
+	public List<Map<Object, String>> offerDataList(Map<String, Object> paramMap)  throws Exception{
+		// TODO Auto-generated method stub
+		return offertoryMapper.offerDataList(paramMap);
 	}
 
 

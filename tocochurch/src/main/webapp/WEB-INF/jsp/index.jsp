@@ -14,6 +14,8 @@ String liveInfo = (String) request.getAttribute("YOUTUBE_LIVE");
     	var lHeight = Math.round((9*lWidth)/16);
     	$("#liveBroad").height(lHeight);
     	  	
+    	//라이브 방송
+    	fnWorshipSearch("liveWorship","PLKjnkDLEDs8lzpUZwn9e_1eUZjeXMka-l");
     	
     	//주일예배
     	fnWorshipSearch("weekWorshipTable","PLKjnkDLEDs8lJvNGJuAHMoKu_vG6nZNLc");
@@ -43,7 +45,11 @@ String liveInfo = (String) request.getAttribute("YOUTUBE_LIVE");
 	  	    success: function (data, status, xhr) {
 	  	    	
 	  	    	//링크 데이터 형성
-	  	    	fnSetList(traget, data.data);
+	  	    	if(traget == "liveWorship"){
+	  	    		fnSetLive(data.data);
+	  	    	} else {
+	  	    		fnSetList(traget, data.data);
+	  	    	}
 	        	
 	  	    },
 	  	    error: function (data, status, err) {
@@ -52,6 +58,12 @@ String liveInfo = (String) request.getAttribute("YOUTUBE_LIVE");
 	  	    complete: function () {
 	  	    }
 	  	});
+    }
+    
+    function fnSetLive(data){
+    	
+    	$("#liveBroad").attr("src", "https://www.youtube.com/embed/"+data[0].id+"?cc_load_policy=0");
+    	
     }
     
     function fnSetList(obj, data){
@@ -109,7 +121,7 @@ String liveInfo = (String) request.getAttribute("YOUTUBE_LIVE");
                             <div class="col-xl-8 col-md-8">
                                 <div class="card bg-primary text-white mb-4 h-auto">
 									<iframe width="100%" id="liveBroad" 
-										src="https://www.youtube.com/embed/<%=liveInfo%>" title="함께가는교회 Live" 
+										src="https://www.youtube.com/embed/" title="함께가는교회 Live" 
 										frameborder="0" 
 										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
 										referrerpolicy="strict-origin-when-cross-origin" allowfullscreen

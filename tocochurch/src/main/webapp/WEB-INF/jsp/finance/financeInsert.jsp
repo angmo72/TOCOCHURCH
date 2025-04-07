@@ -34,6 +34,11 @@
     var datafields2 = "";
         $(document).ready(function () {
         	
+    		$("#frm_money").on("keyup",function(key){
+    			if(key.keyCode==13) {
+    				fnFinanceSave();
+    			}     
+    		});
         	
 			//구분
 			dsGubunCode = fnGridCodeList("CH012");
@@ -184,7 +189,7 @@
                   { text: '수입/지출', datafield: 'GUBUN_NM', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 80},
                   { text: '항목', datafield: 'CATEGORY', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 150 , hidden:true},
                   { text: '항목', datafield: 'CATEGORY_NM', columntype: 'textbox', cellsalign: 'center',align: 'center', width: 150 },
-                  { text: '세부내역', datafield: 'SUB_MEMO', columntype: 'textbox', cellsalign: 'left',align: 'center', width: 250 },
+                  { text: '세부내역', datafield: 'SUB_MEMO', columntype: 'textbox', cellsalign: 'left',align: 'center', width: 200 },
                   { text: '수입', datafield: 'IN_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 130, cellsformat: 'd' 
                       ,aggregates: [{
                           '계': function (aggregatedValue, currentValue) {
@@ -205,16 +210,7 @@
                           }
                       }]
                   },
-                  { text: '잔액', datafield: 'REST_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 160, cellsformat: 'd' 
-                      ,aggregates: [{
-                          '계': function (aggregatedValue, currentValue) {
-                              if (currentValue) {
-                                  return aggregatedValue + currentValue;
-                              }
-                              return aggregatedValue;
-                          }
-                      }]
-                  },
+//                   { text: '잔액', datafield: 'REST_MONEY', columntype: 'textbox', cellsalign: 'right',align: 'center', width: 130, cellsformat: 'd'},
                   { text: '비고', datafield: 'MEMO', columntype: 'textbox', cellsalign: 'center',align: 'center'},
                   { text: '수정', cellsalign: 'center',align: 'center', width: 60, cellsrenderer : fnViewButton, editable : false},
                   { text: 'OFFERTORY_DATE', datafield: 'OFFERTORY_DATE', cellsalign: 'center',align: 'center', width: 60, hidden:true, editable : false},
@@ -294,6 +290,7 @@
         	}
         	if($("#frm_money").val() == ""){
         		alert("금액은 필수 입니다.");
+        		$("#frm_money").focus();
         		return false;
         	}
 
@@ -377,6 +374,7 @@
 			  	    dataType : 'json',
 			  	    success: function (data, status, xhr) {
 			  	    	alert("정상 처리 되었습니다.");
+			  	    	$("#insertPopup").jqxWindow('close');
 			  	    	fnSearchFinanceList();
 			  	    },
 			  	    error: function (data, status, err) {
