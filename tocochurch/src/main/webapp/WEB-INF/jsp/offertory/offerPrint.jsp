@@ -11,8 +11,17 @@
 	@media print {
 		@page {
 			size:210mm 297mm;	/* 실제 인쇄용지 크기 지정 */
-			margin:0mm
+/* 			margin:0mm */
 		}
+		
+/* 		@media print { */
+/* 			body { */
+/* 			margin-top: 50mm; */
+/* 			margin-bottom: 50mm; */
+/* 			margin-left: 20mm; */
+/* 			margin-right: 20mm */
+/* 			} */
+/* 		} */
 		
 		/* 프린트할때 background-color 나오게 하기 */
 		* {
@@ -31,12 +40,15 @@
 		
 		/* 프린트할때 아래쪽에 빈페이지 생기는것 방지 : height: auto; */
 		body {
-			margin: 30px;
-			padding: 0;
+ 			margin-top: 10mm; 
+ 			margin-bottom: 20mm;
+			padding: 0x;
 			height: auto;
 			font-size: 12px;
-			margin-top: 50px;	/* 아래 pop_from_fix 의 margin-top을 적절히 조절해서 위치를 조정한다. */
+/* 			margin-bottom: 30mm; */
+/* 			margin-top: 50px;	/* 아래 pop_from_fix 의 margin-top을 적절히 조절해서 위치를 조정한다. */ */
 		}
+		
 		.pop_from_fix { transform: scale(1.35); margin-top: 50px; }
 
 		.pop_from_fix_btn { display:none; }	/* 프린트할때 버튼 숨기기 */
@@ -184,9 +196,11 @@ function fnViewPage(data){
 	var innerHtml = "";
 	var subSumMoney = 0;
 	var rowcnt = 0;
+	var totalRow = 0;
 	for(var i = 0 ; i < listData.length ; i++){
 		var rowData = listData[i];
 		rowcnt++;
+		totalRow ++;
 		if(subTitle != rowData.GUBUN_NM){
 			rowcnt=1;
 			if(subTitle != ""){
@@ -194,7 +208,6 @@ function fnViewPage(data){
 				innerHtml += sectorE;
 			} 
 			
-
 			innerHtml += sectorS;
 			subSumMoney = "￦ " + fnAddComma(getSumMoney(sumData,rowData.GUBUN_NM));
 			innerHtml +="<span class='title float-start'>"+ rowData.GUBUN_NM +"</span>\n";
@@ -208,12 +221,17 @@ function fnViewPage(data){
 			innerHtml += "<tr>";
 			
 		innerHtml += "<td class='al_center'>"+rowcnt+"</td>\n";
-		innerHtml += "<td>"+rowData.CH_USER_NM+"</td>\n";
-		innerHtml += "<td class='al_right'>￦ " +rowData.MONEY+"</td>\n";
+		innerHtml += "<td>"+rowData.CH_USER_NM +" "+ rowData.USER_NAME +"</td>\n";
+		innerHtml += "<td class='al_right'>" + fnAddComma(rowData.MONEY) +"</td>\n";
 		
-		if(rowcnt%2 ==0)
-			innerHtml += "<tr>\n";
-		
+		if(rowcnt%2 ==0){
+			innerHtml += "</tr>\n";
+		}
+			
+// 		if(totalRow % 56 == 0){
+// 			innerHtml += "<div class='page-divide'></div>\n";
+
+// 		}
 		
 	}
 	

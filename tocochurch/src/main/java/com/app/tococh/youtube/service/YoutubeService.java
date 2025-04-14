@@ -62,7 +62,7 @@ public class YoutubeService {
         return "검색 결과가 없습니다";
     }
     
-    public List<HashMap<String, Object>> playListVideo(String playList) throws IOException {
+    public List<HashMap<String, Object>> playListVideo(String playList, int maxList) throws IOException {
         // JSON 데이터를 처리하기 위한 JsonFactory 객체 생성
         JsonFactory jsonFactory = new JacksonFactory();
 
@@ -83,7 +83,7 @@ public class YoutubeService {
         listItem.setPlaylistId(playList);
         
         //list 최대숫자
-        listItem.setMaxResults((long) 5);
+        listItem.setMaxResults((long) maxList);
 
         // 검색 요청 실행 및 응답 받아오기
         PlaylistItemListResponse playListItemsResponse = listItem.execute();

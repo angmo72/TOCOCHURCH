@@ -356,6 +356,12 @@
 		function fnPrintOfferAct(){
 			var srch_indate = $("#print_indate").val();
 			var srch_gubun = $("#print_gubun").val();
+			
+			if($("#print_indate").val() == "" ){
+        		alert("일자를 선택해주세요");
+        		return false;
+        	}
+
     		var url = '/offertory/offerPrint.do?srch_indate='+srch_indate+'&srch_gubun='+srch_gubun;
     		window.open(url, 'window',
     		  'location=no, directories=no,resizable=no,status=no,toolbar=no,menubar=no, width=800,height=840, scrollbars=yes'

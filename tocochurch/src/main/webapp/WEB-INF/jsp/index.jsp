@@ -15,32 +15,35 @@ String liveInfo = (String) request.getAttribute("YOUTUBE_LIVE");
     	$("#liveBroad").height(lHeight);
     	  	
     	//라이브 방송
-    	fnWorshipSearch("liveWorship","PLKjnkDLEDs8lzpUZwn9e_1eUZjeXMka-l");
+    	fnWorshipSearch("liveWorship","PLKjnkDLEDs8lzpUZwn9e_1eUZjeXMka-l",1);
     	
     	//주일예배
-    	fnWorshipSearch("weekWorshipTable","PLKjnkDLEDs8lJvNGJuAHMoKu_vG6nZNLc");
+    	fnWorshipSearch("weekWorshipTable","PLKjnkDLEDs8lJvNGJuAHMoKu_vG6nZNLc",4);
     	
     	//주일저녁예배
-    	fnWorshipSearch("nightWorshipTable","PLKjnkDLEDs8l0L_psNrf57swDvIuQBn1Y");
+    	fnWorshipSearch("nightWorshipTable","PLKjnkDLEDs8l0L_psNrf57swDvIuQBn1Y",5);
     	
     	// 수요예배
-    	fnWorshipSearch("wendWorshipTable","PLKjnkDLEDs8luKnYrN3EQCyQgBP1H0Fhm");
+    	fnWorshipSearch("wendWorshipTable","PLKjnkDLEDs8luKnYrN3EQCyQgBP1H0Fhm",5);
     	
     	// 금요기도회
-    	fnWorshipSearch("fridWorshipTable","PLKjnkDLEDs8nZ4BanFcUgDQHpNaFPQ4zK");
+    	fnWorshipSearch("fridWorshipTable","PLKjnkDLEDs8nZ4BanFcUgDQHpNaFPQ4zK",5);
     	
     	//새벽기도회
-    	fnWorshipSearch("morningWorshipTable","PLKjnkDLEDs8mbP8iqeNPeYFq_q4b11JIW");
+    	fnWorshipSearch("morningWorshipTable","PLKjnkDLEDs8mbP8iqeNPeYFq_q4b11JIW",5);
     	
     	
     });
     
-    function fnWorshipSearch(traget, playId){
+    function fnWorshipSearch(traget, playId, maxList){
    	
 	  	$.ajax({
 	  	    url: '/youtube/playList.do',
 	  	    method: 'get',
-	  	    data: {playList:playId},		  	    
+	  	    data: {
+	  	    		playList:playId,
+	  	    		maxList:maxList,
+	  	    	},		  	    
 	  	    dataType : 'json',
 	  	    success: function (data, status, xhr) {
 	  	    	

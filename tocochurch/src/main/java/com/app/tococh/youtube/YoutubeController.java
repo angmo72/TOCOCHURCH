@@ -43,7 +43,8 @@ public class YoutubeController {
 
 		// YoutubeService를 통해 동영상 검색한 결과를 받아옴
 		String playList = (String) paramMap.get("playList");
-        List<HashMap<String, Object>> resultList = youtubeService.playListVideo(playList);
+		int  maxList = Integer.parseInt((String) paramMap.get("maxList"));
+        List<HashMap<String, Object>> resultList = youtubeService.playListVideo(playList, maxList);
         
 		reMap.put("data", resultList);
 		
