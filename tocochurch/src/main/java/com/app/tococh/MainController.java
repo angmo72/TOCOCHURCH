@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.mortbay.log.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.common.SHA256;
+import com.app.tococh.interceptor.LoginInterceptor;
 import com.app.tococh.member.service.MemberService;
 import com.app.tococh.sys.service.SysService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class MainController {
 
@@ -31,6 +37,8 @@ public class MainController {
 	@Autowired
 	private SysService sysService;
 	
+	private static final Logger logger = LogManager.getLogger(MainController.class);
+	
 	@GetMapping("/")
 	public String homeRoot(HttpServletRequest request, Model model) throws Exception {
 
@@ -39,7 +47,7 @@ public class MainController {
 
 		model.addAttribute("sessEmail", sessEmail);
 		model.addAttribute("sessName", sessName);
-		
+	
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		List<Map<Object, String>> chInfo = chInfo = sysService.selectChurchInfo(paramMap);
 			
@@ -52,7 +60,7 @@ public class MainController {
 
 		String sessEmail = (String) request.getSession().getAttribute("sessUserEmail");
 		String sessName = (String) request.getSession().getAttribute("sessUserName");
-
+		
 		model.addAttribute("sessEmail", sessEmail);
 		model.addAttribute("sessName", sessName);
 		
@@ -108,7 +116,8 @@ public class MainController {
 	
 	@GetMapping("/login.do")
 	public String loign() {
-		System.out.println(" login를 호출합니다. ");
+
+		logger.info("로그인 정보가 있음");
 		return "loginForm";
 	}
 	
@@ -129,8 +138,6 @@ public class MainController {
 		String sessName = (String) request.getSession().getAttribute("sessUserName");
 
 		HashMap<String, Object> reMap = new HashMap<String, Object>();
-		
-		System.out.println("sessEmail :" + sessEmail);
 		
 		reMap.put("sessEmail", sessEmail);
 		reMap.put("sessName", sessName);

@@ -2,10 +2,14 @@ package com.app.tococh.interceptor;
 
 import java.util.HashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.mortbay.log.Log;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.common.service.CommonService;
+import com.app.tococh.MainController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginInterceptor implements HandlerInterceptor {
 	
 	private static final String[] exceptURIs = {"/login", "/test3"};
+	
+	private static final Logger logger = LogManager.getLogger(MainController.class);
 	
 //	private CommonService commonService;
 //	
@@ -34,6 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String sessUserEmail = (String) session.getAttribute("sessUserEmail");
 //        MemberResponse member = (MemberResponse) session.getAttribute("loginMember");
 
+        
         // 2. 회원 정보 체크
         if (sessUserEmail == null || sessUserEmail.equals("") ) {
             response.sendRedirect("/login.do");
@@ -42,6 +49,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         	//접속 정보를 저장 함
         	//이전 페이지 
 //        	String before_address = request.getHeader("referer");
+//        	logger.error("before_address : " + before_address);
+        	
 //       	
 //        	//사용자 IP 
 //        	String user_ip   = request.getRemoteAddr();
