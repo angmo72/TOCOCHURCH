@@ -50,6 +50,20 @@
                                 </nav>
                             </div>
                            
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sermonLayouts" aria-expanded="false" aria-controls="sermonLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                설교말씀
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="sermonLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/sermon/sunService.do">주일예배</a>
+                                    <a class="nav-link" href="/sermon/sunEvenService.do">주일저녁예배</a>
+                                    <a class="nav-link" href="/sermon/wedService.do">수요예배</a>
+                                    <a class="nav-link" href="/sermon/friService.do">금요기도회</a>
+                                    <a class="nav-link" href="/sermon/morningWords.do">새벽기도회</a>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

@@ -19,6 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 		"/"
                 		,"/churchInfo.do"
                 		,"/youtube/*.*"
+                		,"/sermon/*.*"
                 		,"/home/*.*"
                 		,"/img/*.*"
                 		,"/css/*.*"
